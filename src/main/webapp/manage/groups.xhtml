@@ -23,7 +23,7 @@
                                 <p:commandButton value="Добавить"  disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool  catform:CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
                             </f:facet>
                         </p:panelGrid>  
-                        <p:blockUI block="categories" trigger="addCategoryButton" />
+                        <p:blockUI block="categories" trigger="addCategoryButton catManage:deleteCategory" />
                         <p:spacer height="10px;"/>
                         <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" dynamic="true" animate="true" selection="#{categoryBean.selectedNode}" >  
                             <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catManage:deleteCategory" />
