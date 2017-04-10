@@ -28,18 +28,18 @@
                         <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" selection="#{categoryBean.selectedNode}" >  
                             <p:ajax event="expand" update="growl" listener="#{categoryBean.onNodeExpand}" />
                             <p:ajax event="collapse" update="growl" listener="#{categoryBean.onNodeCollapse}" />
-                            <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton" listener="#{categoryBean.onNodeSelect}" />
+                            <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catManage:updateCategories" listener="#{categoryBean.onNodeSelect}" />
                             <p:ajax event="unselect" update="growl" listener="#{categoryBean.onNodeUnselect}" />
                             <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                                 <h:outputText  value="#{node.name}" />
                             </p:treeNode> 
                         </p:tree>
                     </h:form>
-
                     <f:facet name="footer">
-                        <p:commandButton value="Загрузить из БД" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
+                        <h:form id="catManage">
+                            <p:commandButton value="Загрузить из БД" id="updateCategories" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
+                        </h:form >
                     </f:facet>
-                    
                 </p:panel> 
             </div>  
             <div class="ui-g-12 ui-md-8 ui-lg-8">
