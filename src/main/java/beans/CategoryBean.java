@@ -45,6 +45,7 @@ public class CategoryBean implements Serializable {
         item = new Item();
         root = new DefaultTreeNode("root", null);
         root.getChildren().add(new DefaultTreeNode(categoryServiceJpa.getRoot(loginBean.getUser()), root));
+        loadNodes((Category) root.getChildren().get(0),root.getChildren().get(0));
     }
 
     public void addItem() {
@@ -78,12 +79,7 @@ public class CategoryBean implements Serializable {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
-    public void getNodes() {
-        selectedNode.getChildren().clear();
-
-    }
-
+    
     private void loadNodes(Category root, TreeNode node) {
         node.getChildren().clear();
         categoryServiceJpa.getCategories(root).forEach((Category cat) -> {
