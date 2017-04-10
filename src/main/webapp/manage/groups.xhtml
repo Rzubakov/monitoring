@@ -35,6 +35,11 @@
                             </p:treeNode> 
                         </p:tree>
                     </h:form>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Загрузить из БД" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
+                    </f:facet>
+                    
                 </p:panel> 
             </div>  
             <div class="ui-g-12 ui-md-8 ui-lg-8">
