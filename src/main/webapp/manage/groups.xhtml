@@ -20,7 +20,7 @@
                                 <f:validateLength minimum="5" maximum="50" /> 
                             </p:inputText> 
                             <f:facet name="footer">
-                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
+                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool growl" actionListener="#{categoryBean.addCategory}" />
                             </f:facet>
                         </p:panelGrid>  
                         <p:blockUI block="addCatTool CategoryTree" trigger="addCategoryButton" />
