@@ -37,7 +37,7 @@
                     </h:form>
                     <f:facet name="footer">
                         <h:form id="catManage">
-                            <p:commandButton value="Загрузить из БД" id="updateCategories" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
+                            <p:commandButton value="Загрузить из БД" id="updateCategories" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
                             <p:commandButton value="Удалить" id="deleteCategory" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
                         </h:form > 
                     </f:facet>
