@@ -25,8 +25,8 @@
                         </p:panelGrid>  
                         <p:blockUI block="categories" trigger="addCategoryButton" />
                         <p:spacer height="10px;"/>
-                        <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" selection="#{categoryBean.selectedNode}" >  
-                            <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catform:deleteCategory" />
+                        <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" dynamic="true" animate="true" selection="#{categoryBean.selectedNode}" >  
+                            <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catManage:deleteCategory" />
                             <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                                 <h:outputText  value="#{node.name}" />
                             </p:treeNode> 
