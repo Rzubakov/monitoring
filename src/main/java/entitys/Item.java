@@ -19,8 +19,8 @@ import javax.validation.constraints.NotNull;
 public class Item extends EntityModel {
 
     private static final long serialVersionUID = -600277898572273237L;
-    public static String BYUSER = "Item.getByUser";
-    public static String BYCATEGORY = "Item.getItemsByCategory";
+    public static final String BYUSER = "Item.getByUser";
+    public static final String BYCATEGORY = "Item.getItemsByCategory";
     
     public Item() {
         super();

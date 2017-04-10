@@ -17,11 +17,14 @@ public class CategoryServiceJpa extends AbstractService<Category> {
     }
 
     public List<Category> getCategories(Category category) {
-        return manager.createNamedQuery("Category.getChild").setParameter("parent", category).getResultList();
+        return manager.createNamedQuery(Category.GETCHILD).setParameter("parent", category).getResultList();
     }
-
+    
+    public List<Category> getCategories(User user) {
+        return manager.createNamedQuery(Category.BYUSER).setParameter("user", user).getResultList();
+    }
     public Category getRoot(User user) {
-        return (Category) manager.createNamedQuery("Category.getRoot").setParameter("user", user).getSingleResult();
+        return (Category) manager.createNamedQuery(Category.GETROOT).setParameter("user", user).getSingleResult();
     }
 
 }
