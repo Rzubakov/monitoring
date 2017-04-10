@@ -20,7 +20,7 @@
                                 <f:validateLength minimum="5" maximum="50" /> 
                             </p:inputText> 
                             <f:facet name="footer">
-                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool growl" actionListener="#{categoryBean.addCategory}" />
+                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool growl catform:CategoryTree" actionListener="#{categoryBean.addCategory}" />
                             </f:facet>
                         </p:panelGrid>  
                         <p:blockUI block="addCatTool CategoryTree" trigger="addCategoryButton" />
@@ -37,8 +37,7 @@
                     </h:form>
                     <f:facet name="footer">
                         <h:form id="catManage">
-                            <p:commandButton value="Загрузить из БД" id="updateCategories" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.getNodes}" />
-                            <p:commandButton value="Удалить" id="deleteCategory" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
+                            <p:commandButton value="Удалить" id="deleteCategory" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
                         </h:form > 
                     </f:facet>
                 </p:panel> 

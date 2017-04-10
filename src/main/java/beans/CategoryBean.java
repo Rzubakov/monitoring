@@ -59,10 +59,12 @@ public class CategoryBean implements Serializable {
         category.setUser(loginBean.getUser());
         categoryServiceJpa.add(category);
         category = new Category();
+        getNodes();
     }
 
     public void deleteCategory() {
         categoryServiceJpa.delete((Category) selectedNode.getData());
+        getNodes();
     }
 
     public TreeNode getRoot() {
