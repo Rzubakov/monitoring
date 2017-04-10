@@ -9,7 +9,7 @@
         <ui:define name="title">Конфигурирование</ui:define> 
         <ui:define name="content">
             <div class="ui-g-12 ui-md-4 ui-lg-4">
-                <p:panel header="Управление категориями" >  
+                <p:panel header="Управление категориями" id="categories">  
                     <h:form id="catform">
                         <p:panelGrid columns="2" id="addCatTool" >
                             <f:facet name="header">
@@ -20,10 +20,10 @@
                                 <f:validateLength minimum="5" maximum="50" /> 
                             </p:inputText> 
                             <f:facet name="footer">
-                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool  catform:CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
+                                <p:commandButton value="Добавить" style="color: #0000ff;" disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool  catform:CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
                             </f:facet>
                         </p:panelGrid>  
-                        <p:blockUI block="addCatTool CategoryTree" trigger="addCategoryButton" />
+                        <p:blockUI block="categories" trigger="addCategoryButton" />
                         <p:spacer height="10px;"/>
                         <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" selection="#{categoryBean.selectedNode}" >  
                             <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catform:deleteCategory" />
@@ -34,7 +34,7 @@
                     </h:form>
                     <f:facet name="footer">
                         <h:form id="catManage">
-                            <p:commandButton value="Удалить" id="deleteCategory" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
+                            <p:commandButton value="Удалить" id="deleteCategory" style="color: #ff0000;" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
                         </h:form > 
                     </f:facet>
                 </p:panel> 
