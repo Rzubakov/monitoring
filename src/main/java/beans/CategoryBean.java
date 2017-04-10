@@ -2,8 +2,6 @@ package beans;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.annotation.PostConstruct;
 import org.primefaces.model.*;
 import entitys.Category;
@@ -15,7 +13,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import jpa.CategoryServiceJpa;
 import jpa.ItemServiceJpa;
-import org.primefaces.event.*;
 
 @ManagedBean(name = "categoryBean")
 @ViewScoped
@@ -45,7 +42,7 @@ public class CategoryBean implements Serializable {
         item = new Item();
         root = new DefaultTreeNode("root", null);
         root.getChildren().add(new DefaultTreeNode(categoryServiceJpa.getRoot(loginBean.getUser()), root));
-        loadNodes((Category) root.getChildren().get(0).getData(),root.getChildren().get(0));
+        loadNodes((Category) root.getChildren().get(0).getData(), root.getChildren().get(0));
     }
 
     public void addItem() {
@@ -79,7 +76,7 @@ public class CategoryBean implements Serializable {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
+
     private void loadNodes(Category root, TreeNode node) {
         node.getChildren().clear();
         categoryServiceJpa.getCategories(root).forEach((Category cat) -> {
@@ -135,24 +132,4 @@ public class CategoryBean implements Serializable {
         this.filteredItems = filteredItems;
     }
 
-    // Tree events
-    public void onNodeExpand(NodeExpandEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Expanded", event.getTreeNode().toString());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public void onNodeCollapse(NodeCollapseEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Collapsed", event.getTreeNode().toString());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public void onNodeSelect(NodeSelectEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "onNodeSelect", event.getTreeNode().toString());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public void onNodeUnselect(NodeUnselectEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unselected", event.getTreeNode().toString());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
 }
