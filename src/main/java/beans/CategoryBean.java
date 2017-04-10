@@ -51,7 +51,7 @@ public class CategoryBean implements Serializable {
         item.setCategory((Category) selectedNode.getData());
         item.setUser(loginBean.getUser());
         itemServiceJpa.add(item);
-        item = new Item();
+        item = new Item();  
     }
 
     public void addCategory() {
@@ -59,18 +59,18 @@ public class CategoryBean implements Serializable {
         category.setUser(loginBean.getUser());
         categoryServiceJpa.add(category);
         category = new Category();
-        getNodes();
+        loadNodes((Category) selectedNode.getData(), selectedNode);
     }
 
     public void deleteCategory() {
         categoryServiceJpa.delete((Category) selectedNode.getData());
-        getNodes();
+        loadNodes((Category) selectedNode.getParent().getData(), selectedNode.getParent());
     }
 
     public TreeNode getRoot() {
         return root;
     }
-
+ 
     public List<Item> getItems() {
         return items;
     }
@@ -81,14 +81,10 @@ public class CategoryBean implements Serializable {
 
     public void getNodes() {
         selectedNode.getChildren().clear();
-        loadNodes((Category) selectedNode.getData(), selectedNode);
+       
     }
 
     private void loadNodes(Category root, TreeNode node) {
-        categoryServiceJpa.getCategories(loginBean.getUser()).forEach(category->{
-            System.out.println(category.getName()+" "+category.getParent());
-        });
-        
         categoryServiceJpa.getCategories(root).forEach((Category cat) -> {
             loadNodes(cat, new DefaultTreeNode(cat, node));
         });

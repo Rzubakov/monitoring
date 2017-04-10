@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
     ,
-    @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.parent"),})
+    @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.parent.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
 
