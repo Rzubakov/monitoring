@@ -9,7 +9,7 @@ public class BaseListener implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
             
-		System.out.println("SessionCreated "+se.getSession().getServletContext().getContextPath());
+		System.out.println("SessionCreated-"+se.getSession().getServletContext().getContextPath());
                 System.out.println(se.getSession().getServletContext().getServletContextName());
 	}  
 	@Override
