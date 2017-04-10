@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="java.sun.com/xml/ns/javaee"
+xmlns:xsi="www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="java.sun.com/xml/ns/javaee java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+<interceptors>
+    <class>interceptors.Logger</class>
+</interceptors>
+    
+</beans>

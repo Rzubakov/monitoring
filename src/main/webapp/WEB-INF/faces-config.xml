@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config
+    xmlns='http://java.sun.com/xml/ns/javaee'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd'
+    version='2.2'>
+    
+<!-- <lifecycle>
+   <phase-listener>listeners.SessionExpirationPhaseListener</phase-listener>
+</lifecycle>-->
+<!-- Pages -->
+ <navigation-rule>
+  <navigation-case>
+   <from-outcome>index</from-outcome>
+   <to-view-id>/manage/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>items</from-outcome>
+   <to-view-id>/manage/items.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>docs</from-outcome>
+   <to-view-id>/manage/docs.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case> 
+  
+   <navigation-case>
+   <from-outcome>groups</from-outcome>
+   <to-view-id>/manage/groups.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>error</from-outcome>
+   <to-view-id>/error.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/login.xhtml</to-view-id>
+   <redirect/> 
+  </navigation-case>  
+ 
+   <navigation-case>
+   <from-outcome>pay</from-outcome>
+   <to-view-id>/manage/payment.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case> 
+ </navigation-rule>
+
+
+</faces-config>
