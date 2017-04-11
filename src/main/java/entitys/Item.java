@@ -13,7 +13,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Item.getItemsByCategory", query = "select i from Item i WHERE i.category=:category and i.user=:user"),
-    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user")
+    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user"),
+    @NamedQuery(name = "Item.getCount", query = "select count(*) from Item i WHERE i.category=:category"),       
 })
 @Table(name = "Items")
 public class Item extends EntityModel {
@@ -21,6 +22,7 @@ public class Item extends EntityModel {
     private static final long serialVersionUID = -600277898572273237L;
     public static final String BYUSER = "Item.getByUser";
     public static final String BYCATEGORY = "Item.getItemsByCategory";
+    public static final String GETCOUNT = "Item.getCount";
     
     public Item() {
         super();

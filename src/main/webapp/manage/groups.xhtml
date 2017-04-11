@@ -16,9 +16,7 @@
                                 Добавить категорию 
                             </f:facet>
                             <h:outputLabel for="name" value="Наименование" />
-                            <p:inputText  id="name" value="#{categoryBean.category.name}" placeholder="Daikin" required="true" label="Name">
-                                <f:validateLength minimum="5" maximum="50" /> 
-                            </p:inputText> 
+                            <p:inputText  id="name" value="#{categoryBean.category.name}" placeholder="Daikin" required="true" label="Name" />
                             <f:facet name="footer">
                                 <p:commandButton value="Добавить"  disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool  catform:CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
                             </f:facet>

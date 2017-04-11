@@ -79,8 +79,8 @@ public class CategoryBean implements Serializable {
 
     private void loadNodes(Category root, TreeNode node) {
         node.getChildren().clear();
-        categoryServiceJpa.getCategories(root).forEach((Category cat) -> {
-            loadNodes(cat, new DefaultTreeNode(cat, node));
+        categoryServiceJpa.getCategories(root).forEach((Category cat) -> {  
+            loadNodes(cat, new DefaultTreeNode(cat.getName()+itemServiceJpa.getCount(cat), node));
         });
     }
 
