@@ -88,7 +88,7 @@ public class CategoryBean implements Serializable {
 
     private void createTree() {
         categoryServiceJpa.getCategories(loginBean.getUser()).forEach(cat -> {
-            System.out.println(cat.getId() + " " + cat.getName() + " " + cat.getParent().getId());
+            System.out.println(cat.getId() + " " + cat.getName());
         });
     }
 
