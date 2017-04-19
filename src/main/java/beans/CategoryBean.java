@@ -92,7 +92,7 @@ public class CategoryBean implements Serializable {
         
         categories.forEach(System.out::println);
         ///createTree(rootCategory, categories);
-    }
+    } 
 
     private void createTree(Category root, List<Category> cats) {
         cats.forEach(cat -> {
