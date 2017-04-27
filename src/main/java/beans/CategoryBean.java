@@ -63,7 +63,7 @@ public class CategoryBean implements Serializable {
     public void deleteCategory() {
         categoryServiceJpa.delete((Category) selectedNode.getData());
         loadNodes((Category) selectedNode.getParent().getData(), selectedNode.getParent());
-    }
+    } 
 
     public TreeNode getRoot() {
         return root;
