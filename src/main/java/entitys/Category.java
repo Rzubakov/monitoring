@@ -39,6 +39,10 @@ public class Category extends EntityModel {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Category> childCategories;
 
+    
+    
+    
+    
     public List<Category> getChildCategories() {
         return childCategories;
     }
@@ -71,11 +75,6 @@ public class Category extends EntityModel {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public List<Item> getItems() {
         return items;
     }
@@ -95,5 +94,11 @@ public class Category extends EntityModel {
     public void setParent(Category parent) {
         this.parent = parent;
     }
-
+    
+    
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }
