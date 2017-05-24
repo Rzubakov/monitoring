@@ -6,14 +6,14 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">  
     <h:head>
         <title><ui:insert name="title">Название по умолчанию</ui:insert></title>
-
+        <h:outputStylesheet library="css" name="bootstrap.min.css"  />
     </h:head>
     <h:body>
-        <div class="ui-g"> 
-            <div class="ui-g-12 ui-md-2 ui-lg-2">
+        <div class="container"> 
+            <div class="col-xs-2 col-md-2 col-lg-2">
                 <h:graphicImage  value="resources/images/logo.png" height="55px" alt="Zubakov studio" title="Zubakov studio" />
             </div>
-            <div class="ui-g-12 ui-md-10 ui-lg-10">
+            <div class="col-xs-12 col-md-10 col-lg-10">
                 <h:form>  
                     <p:tabMenu activeIndex="#{param.i}">
                         <p:menuitem value="Главная" outcome="home">
@@ -28,11 +28,15 @@
                     </p:tabMenu>            
                 </h:form> 
             </div>
-        </div>
-
+            
         <div class="ui-g">
             <ui:insert name="content">Содержимое по умолчанию</ui:insert>
         </div>
+            
+            
+        </div>
+
+
 
 
     </h:body>
