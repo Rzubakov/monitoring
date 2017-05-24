@@ -8,11 +8,10 @@
         <meta name="yandex-verification" content="80a97ee0b666b124" />
     </h:head>
     <h:body>
-
-    <ui:composition template="/layouts/home.xhtml">
-        <ui:define name="title">Главная</ui:define> 
-        <ui:define name="content">Содержимое главной</ui:define> 
-    </ui:composition>    
-
+        <f:param name="i" value="0" />   
+        <ui:composition template="/layouts/home.xhtml">
+            <ui:define name="title">Главная</ui:define> 
+            <ui:define name="content">Содержимое главной</ui:define> 
+        </ui:composition>    
     </h:body>
 </html>    
