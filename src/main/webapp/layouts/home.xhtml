@@ -9,29 +9,20 @@
         <h:outputStylesheet library="css" name="bootstrap.min.css"  />
     </h:head>
     <h:body>
-
-        <div class="ui-g"> 
-            <div class="ui-g-12 ui-md-2 ui-lg-2 ">
-                <h:graphicImage  value="resources/images/logo.png" height="55px" alt="Zubakov studio" title="Zubakov studio" />
-            </div>
-            <div class="ui-g-12 ui-md-10 ui-lg-10">
-                <h:form>  
-                    <p:tabMenu activeIndex="#{param.i}">
-                        <p:menuitem value="Главная" outcome="home">
-                            <f:param name="i" value="0" />
-                        </p:menuitem>
-                        <p:menuitem value="Услуги" outcome="services" >
-                            <f:param name="i" value="1" />
-                        </p:menuitem>
-                        <p:menuitem value="Контакты" outcome="contacts" >
-                            <f:param name="i" value="2" />
-                        </p:menuitem>                   
-                    </p:tabMenu>            
-                </h:form> 
-            </div>
-        </div> 
-
         <div class="container">
+            <h:form>  
+                <p:tabMenu activeIndex="#{param.i}">
+                    <p:menuitem value="Главная" outcome="home">
+                        <f:param name="i" value="0" />
+                    </p:menuitem>
+                    <p:menuitem value="Услуги" outcome="services" >
+                        <f:param name="i" value="1" />
+                    </p:menuitem>
+                    <p:menuitem value="Контакты" outcome="contacts" >
+                        <f:param name="i" value="2" />
+                    </p:menuitem>                   
+                </p:tabMenu>            
+            </h:form>    
             <ui:insert name="content">Содержимое по умолчанию</ui:insert>
         </div>
 
