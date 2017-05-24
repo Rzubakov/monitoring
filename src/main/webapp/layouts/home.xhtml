@@ -11,12 +11,11 @@
     <h:body>
         <div class="ui-g"> 
             <div class="ui-g-12 ui-md-2 ui-lg-2">
-                
+                <h:graphicImage value="resources/images/home.png" />
             </div>
             <div class="ui-g-12 ui-md-10 ui-lg-10">
                 <h:form>  
                     <p:tabMenu activeIndex="#{param.i}">
-                        <p:menuitem value="Главная" icon="/resources/home.png" outcome="home"></p:menuitem>
                         <p:menuitem value="Главная" outcome="home">
                             <f:param name="i" value="0" />
                         </p:menuitem>
