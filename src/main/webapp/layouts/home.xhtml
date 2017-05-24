@@ -10,19 +10,25 @@
     </h:head>
     <h:body>
         <div class="container">
-            <h:form>  
-                <p:tabMenu activeIndex="#{param.i}">
-                    <p:menuitem value="Главная" outcome="home">
-                        <f:param name="i" value="0" />
-                    </p:menuitem>
-                    <p:menuitem value="Услуги" outcome="services" >
-                        <f:param name="i" value="1" />
-                    </p:menuitem>
-                    <p:menuitem value="Контакты" outcome="contacts" >
-                        <f:param name="i" value="2" />
-                    </p:menuitem>                   
-                </p:tabMenu>            
-            </h:form>    
+            <div class="col-md-1">
+                <h:graphicImage value="resources/images/logo.png" />
+            </div>
+            <div class="col-md-11">
+                <h:form>  
+                    <p:tabMenu activeIndex="#{param.i}">
+                        <p:menuitem value="Главная" outcome="home">
+                            <f:param name="i" value="0" />
+                        </p:menuitem>
+                        <p:menuitem value="Услуги" outcome="services" >
+                            <f:param name="i" value="1" />
+                        </p:menuitem>
+                        <p:menuitem value="Контакты" outcome="contacts" >
+                            <f:param name="i" value="2" />
+                        </p:menuitem>                   
+                    </p:tabMenu>            
+                </h:form>                  
+            </div>
+
             <ui:insert name="content">Содержимое по умолчанию</ui:insert>
         </div>
     </h:body>
