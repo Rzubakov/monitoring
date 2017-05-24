@@ -7,13 +7,11 @@
     <h:head>
         <title><ui:insert name="title">Название по умолчанию</ui:insert></title>
         <h:outputStylesheet library="css" name="bootstrap.min.css"  />
+        <h:outputStylesheet library="css" name="narrow-jumbotron.css"  />
     </h:head>
     <h:body>
         <div class="container"> 
-            <div class="col-xs-2 col-md-2 col-lg-2">
-                <h:graphicImage  value="resources/images/logo.png" height="55px" alt="Zubakov studio" title="Zubakov studio" />
-            </div>
-            <div class="col-xs-12 col-md-10 col-lg-10">
+            <div class="header clearfix">
                 <h:form>  
                     <p:tabMenu activeIndex="#{param.i}">
                         <p:menuitem value="Главная" outcome="home">
