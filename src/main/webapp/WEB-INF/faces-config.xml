@@ -11,6 +11,24 @@
 </lifecycle>-->
 <!-- Pages -->
  <navigation-rule>
+   <navigation-case>
+   <from-outcome>home</from-outcome>
+   <to-view-id>/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>    
+
+   <navigation-case>
+   <from-outcome>services</from-outcome>
+   <to-view-id>/services.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>  
+     
+   <navigation-case>
+   <from-outcome>contacts</from-outcome>
+   <to-view-id>/contacts.xhtml</to-view-id>
+   <redirect/>
+   </navigation-case>
+                 
   <navigation-case>
    <from-outcome>index</from-outcome>
    <to-view-id>/manage/index.xhtml</to-view-id>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+    <h:head>
+        <title><ui:insert name="title">Название по умолчанию</ui:insert></title>
+        <style>
+            html,body{
+                padding:0;
+                margin:0;
+                height:100%;
+            }
+        </style>       
+    </h:head>
+    <h:body>
+        <ui:debug ></ui:debug>
+        <p:growl id="growl" showDetail="true" sticky="true" /> 
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+        <h:form>  
+            <p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Главная" outcome="home">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Услуги" outcome="services" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Контакты" outcome="contacts" >
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+
+                <p:menuitem value="Перейти в ЛК" outcome="index" >
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+            </p:tabMenu>            
+
+        </h:form>   
+            </div>
+        </div>
+
+
+        <div class="ui-g">
+            <ui:insert name="content">Содержимое по умолчанию</ui:insert>
+        </div>
+
+        <h:outputScript library="javax.faces" name="jsf.js"/>
+        <script>
+            console.log(jsf);
+        </script> 
+    </h:body>
+</html>  
+
