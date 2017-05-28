@@ -10,9 +10,6 @@
     </h:head>
     <h:body>
         <div class="container">
-            <div class="col-md-2">
-                <h:graphicImage value="resources/images/logo.png" />
-            </div>
             <div class="col-md-12">
                 <h:form>  
                     <p:tabMenu activeIndex="#{param.i}">
@@ -27,6 +24,9 @@
                         </p:menuitem>                   
                     </p:tabMenu>            
                 </h:form>                  
+            </div>
+            <div class="col-md-2">
+                <h:graphicImage value="resources/images/logo.png" />
             </div>
             <div class="col-md-12">
                 <ui:insert name="content">Содержимое по умолчанию</ui:insert>   
