@@ -39,10 +39,6 @@ public class Category extends EntityModel {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Category> childCategories;
 
-    
-    
-    
-    
     public List<Category> getChildCategories() {
         return childCategories;
     }

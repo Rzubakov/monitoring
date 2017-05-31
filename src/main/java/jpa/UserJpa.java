@@ -1,16 +1,13 @@
 package jpa;
 
 import entitys.User;
-import interceptors.Logger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
 
 @Stateless
-@Interceptors(Logger.class)
-public class UserServiceJpa extends AbstractService<User> {
+public class UserJpa extends GenericJpa<User> {
 
-    public UserServiceJpa() {
+    public UserJpa() {
         super();
     }
 

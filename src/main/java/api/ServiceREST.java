@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
 
 import ejb.*;
@@ -23,9 +18,9 @@ import javax.ws.rs.core.Response;
 public class ServiceREST {
 
     @EJB
-    private ItemServiceEjb itemServiceEjb;
+    private ItemEjb itemEjb;
     @EJB
-    private UserServiceEjb userServiceEjb;
+    private UserEjb userEjb;
 
     @GET
     @Path("/test")
@@ -38,14 +33,14 @@ public class ServiceREST {
     @Path("/getallitem")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems(@QueryParam("userid") Long userid) {
-        return Response.ok().entity(itemServiceEjb.getByUser(userServiceEjb.getUser(userid))).build();
+        return Response.ok().entity(itemEjb.getByUser(userEjb.getUser(userid))).build();
     }
 
     @GET
     @Path("/getusers")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getItems(@QueryParam("active") String active) {
-        return userServiceEjb.getActiveUsers(active);
+        return userEjb.getActiveUsers(active);
     }
 
 }

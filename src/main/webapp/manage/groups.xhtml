@@ -8,56 +8,28 @@
     <ui:composition template="../layouts/manage.xhtml">
         <ui:define name="title">Конфигурирование</ui:define> 
         <ui:define name="content">
+            <!-- Tree -->
             <div class="ui-g-12 ui-md-4 ui-lg-4">
                 <p:panel header="Управление категориями" id="categories">  
                     <h:form id="catform">
-                        <p:panelGrid columns="2" id="addCatTool" >
-                            <f:facet name="header">
-                                Добавить категорию 
-                            </f:facet>
-                            <h:outputLabel for="name" value="Наименование" />
-                            <p:inputText  id="name" value="#{categoryBean.category.name}" placeholder="Daikin" required="true" label="Name" />
-                            <f:facet name="footer">
-                                <p:commandButton value="Добавить"  disabled="#{categoryBean.selectedNode ==null}" id="addCategoryButton" update="addCatTool  catform:CategoryTree growl" actionListener="#{categoryBean.addCategory}" />
-                            </f:facet>
-                        </p:panelGrid>  
-                        <p:blockUI block="categories" trigger="addCategoryButton catManage:deleteCategory" />
-                        <p:spacer height="10px;"/>
-                        <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" dynamic="true" animate="true" selection="#{categoryBean.selectedNode}" >  
-                            <p:ajax event="select" update="growl catform:addCategoryButton itemform:addItemButton catManage:deleteCategory" />
+                        <p:contextMenu for="CategoryTree" id="categoryContextMenu" rendered="#{categoryBean.selectedNode != null}">
+                            <p:menuitem value="Добавить категорию"  onclick="PF('addCategory').show()"  />   
+                            <p:menuitem value="Изменить категорию"  onclick="PF('changeCategory').show()" /> 
+                            <p:menuitem value="Удалить категорию"   onclick="PF('deleteCategory').show()" />       
+                        </p:contextMenu> 
+                        <p:tree id="CategoryTree" value="#{categoryBean.root}"  var="node" style="width: 100%" selectionMode="single" dynamic="true" animate="true" selection="#{categoryBean.selectedNode}" >                           
                             <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                                 <h:outputText  value="#{node.name}" />
                             </p:treeNode> 
                         </p:tree>
                     </h:form>
-                    <f:facet name="footer">
-                        <h:form id="catManage">
-                            <p:commandButton value="Удалить" id="deleteCategory" update="catform:CategoryTree" disabled="#{categoryBean.selectedNode ==null}" actionListener="#{categoryBean.deleteCategory}" />
-                        </h:form > 
-                    </f:facet>
                 </p:panel> 
             </div>  
+            <!-- end tree -->
+            <!-- table -->
             <div class="ui-g-12 ui-md-8 ui-lg-8">
                 <h:form id="itemform" >
                     <p:panel header="Управление элементами" >
-                        <p:panelGrid columns="2" id="addItemTool" > 
-                            <f:facet name="header">
-                                Добавить элемент 
-                            </f:facet>
-                            <h:outputLabel for="nameitem" value="Название:" />
-                            <p:inputText  id="nameitem" placeholder="ATXN20MB/ARXN20MB"  value="#{categoryBean.item.name}"  required="true" label="nameitem"/> 
-                            <h:outputLabel for="url" value="URL страницы:" />
-                            <p:inputText  id="url"  placeholder="http://daikin-shop.ru/model/6996/" value="#{categoryBean.item.url}"  required="true" label="url"/>
-                            <h:outputLabel for="path" value="Pattern:" />
-                            <p:inputText  id="path"  placeholder=".mainInfo :eq(1) .price"  value="#{categoryBean.item.path}"  required="true" label="path"/>
-                            <f:facet name="footer">
-                                <p:commandButton value="Добавить" disabled="#{categoryBean.selectedNode==null}" id="addItemButton" update="growl addItemTool"  actionListener="#{categoryBean.addItem}" />
-                            </f:facet>
-                        </p:panelGrid>
-                        <p:blockUI block="addItemTool" trigger="addItemButton" />
-
-                        <p:spacer height="10px;"/>
-
                         <p:dataTable var="item" value="#{categoryBean.items}" editable="true" filteredValue="#{categoryBean.filteredItems}" resizableColumns="true" paginator="true" rows="10" id="itemTable" selection="#{categoryBean.selectedItem}"  selectionMode="single" rowKey="#{item.id}">                   
                             <p:column headerText="ID" filterBy="#{item.id}" sortBy="#{item.id}" filterMatchMode="contains">
                                 <h:outputText value="#{item.id}" /> 
@@ -91,6 +63,25 @@
                     </p:panel>
                 </h:form>
             </div>
+            <!-- end table -->
+            <!-- categogy window -->
+            <p:dialog widgetVar="addCategory" modal="true" resizable="false" draggable="false">
+                <h:form id="addCategoryForm" >  
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">Добавить категорию</f:facet>
+                        <p:outputLabel for="name" value="Наименование:" />
+                        <p:inputText id="name" value="" placeholder="Кондиционеры" validatorMessage="Наименование от 5 до 200 знаков." >
+                            <f:validateLength minimum="5" maximum="200"/>
+                        </p:inputText>
+                        <f:facet name="footer">
+                            <p:commandButton value="Добавить" update="growl" validateClient="true" icon="ui-icon-check" />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog> 
+            <p:dialog header="Изменить категорию" widgetVar="changeCategory" modal="true" resizable="false" draggable="false" ></p:dialog> 
+            <p:dialog header="Удалить категорию" widgetVar="deleteCategory" modal="true" resizable="false" draggable="false" ></p:dialog>
+            <!--end categogy window -->
         </ui:define> 
     </ui:composition>         
 </html>

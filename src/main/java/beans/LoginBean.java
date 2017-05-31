@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 import entitys.User;
@@ -13,41 +8,44 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import jpa.UserServiceJpa;
+import jpa.UserJpa;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
+    @EJB
+    private UserJpa userJpa;
+    private User user;
     private String email;
     private String password;
-    private User user;
 
-    public UserServiceJpa getUserService() {
-        return userService;
+    public LoginBean() {
     }
-
-    public void setUserService(UserServiceJpa userService) {
-        this.userService = userService;
-    }
-
-    @EJB
-    private UserServiceJpa userService;
 
     public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-            getRequest().login(email, password);
-            user = userService.getUser(email);
-            getRequest().getSession().setAttribute("user", user.getEmail());
+            request.login(email, password);
+            user = userJpa.getUser(email);
             return "index";
         } catch (ServletException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return "error";
         }
+
     }
 
     public String logout() {
-        getRequest().getSession().invalidate();
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            e.printStackTrace();
+            return "error";
+        }
         return "login";
     }
 
@@ -67,10 +65,6 @@ public class LoginBean implements Serializable {
         this.password = password;
     }
 
-    public HttpServletRequest getRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    }
-
     public User getUser() {
         return user;
     }
@@ -78,5 +72,5 @@ public class LoginBean implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-       
+
 }

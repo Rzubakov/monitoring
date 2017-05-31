@@ -1,7 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import org.primefaces.model.*;
 import entitys.Category;
@@ -11,8 +10,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import jpa.CategoryServiceJpa;
-import jpa.ItemServiceJpa;
+import jpa.CategoryJpa;
+import jpa.ItemJpa;
 
 @ManagedBean(name = "categoryBean")
 @ViewScoped
@@ -32,36 +31,36 @@ public class CategoryBean implements Serializable {
     private LoginBean loginBean;
 
     @EJB
-    private CategoryServiceJpa categoryServiceJpa;
+    private CategoryJpa categoryJpa;
     @EJB
-    private ItemServiceJpa itemServiceJpa;
+    private ItemJpa itemJpa;
 
     @PostConstruct
     public void ini() {
         category = new Category();
         item = new Item();
         root = new DefaultTreeNode("root", null);
-        root.getChildren().add(new DefaultTreeNode(categoryServiceJpa.getRoot(loginBean.getUser()), root));
+        root.getChildren().add(new DefaultTreeNode(categoryJpa.getRoot(loginBean.getUser()), root));
         loadNodes((Category) root.getChildren().get(0).getData(), root.getChildren().get(0));
     }
 
     public void addItem() {
         item.setCategory((Category) selectedNode.getData());
         item.setUser(loginBean.getUser());
-        itemServiceJpa.add(item);
+        itemJpa.add(item);
         item = new Item();
     }
-
+ 
     public void addCategory() {
         category.setParent((Category) selectedNode.getData());
         category.setUser(loginBean.getUser());
-        categoryServiceJpa.add(category);
+        categoryJpa.add(category);
         category = new Category();
         loadNodes((Category) selectedNode.getData(), selectedNode);
     }
 
     public void deleteCategory() {
-        categoryServiceJpa.delete((Category) selectedNode.getData());
+        categoryJpa.delete((Category) selectedNode.getData());
         loadNodes((Category) selectedNode.getParent().getData(), selectedNode.getParent());
     } 
 
@@ -79,16 +78,16 @@ public class CategoryBean implements Serializable {
 
     private void loadNodes(Category root, TreeNode node) {
         node.getChildren().clear();
-        System.out.println(itemServiceJpa.getCount(root));
-        categoryServiceJpa.getCategories(root).forEach((Category cat) -> {
+        System.out.println(itemJpa.getCount(root));
+        categoryJpa.getCategories(root).forEach((Category cat) -> {
             loadNodes(cat, new DefaultTreeNode(cat, node));
         });
         getTree();
     }
 
     private void getTree() {
-        List<Category> categories = categoryServiceJpa.getCategories(loginBean.getUser());
-        Category rootCategory = categoryServiceJpa.getRoot(loginBean.getUser());
+        List<Category> categories = categoryJpa.getCategories(loginBean.getUser());
+        Category rootCategory = categoryJpa.getRoot(loginBean.getUser());
         
         categories.forEach(System.out::println);
         ///createTree(rootCategory, categories);

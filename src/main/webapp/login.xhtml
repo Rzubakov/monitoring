@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  
-      xmlns:h="http://java.sun.com/jsf/html"  
-      xmlns:f="http://java.sun.com/jsf/core"  
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"   
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
     <h:head>
-        <title>Вход</title> 
+        <title>Вход</title>
+        <style>
+            body,html{
+                height:100%;
+                margin: 0px;
+            }
+            #container{
+                display: flex;
+                height: 100%;
+            }
+            #loginform{
+                margin: auto;
+            }
+        </style>    
     </h:head>
-    <h:body>
-        <h:form> 
-            <p:messages id="messages" />
-            <p:panelGrid columns="2">
-                <p:outputLabel for="nameUser" value="Email:" />
-                <p:inputText id="nameUser" value="#{loginBean.email}" />
-
-                <p:outputLabel for="password" value="Password:" />
-                <p:password id="password" value="#{loginBean.password}" />
-
-                <p:commandButton value="Login" icon="ui-icon-star" action="#{loginBean.login()}" ajax="false">
-                </p:commandButton>
-
-            </p:panelGrid>
-        </h:form>
+    <h:body> 
+        <div class="ui-g" id="container">
+            <h:form id="loginform">  
+                <p:growl id="growl" showDetail="true" life="5000" sticky="true" />
+                <p:panelGrid columns="2">
+                    <f:facet name="header">Вход в ЛК</f:facet>
+                    <p:outputLabel for="email" value="Email:" />
+                    <p:inputText id="email" value="#{loginBean.email}" placeholder="example@mail.ru" validatorMessage="Введите корректный email адрес.">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />             
+                    </p:inputText>
+                    <p:outputLabel for="password" value="Password:"  />
+                    <p:password id="password" value="#{loginBean.password}" placeholder="password" validatorMessage="Пароль должен содержать минимум 5 знаков." >
+                        <f:validateLength minimum="5"/>
+                    </p:password>
+                    <f:facet name="footer"><p:commandButton value="Вход" update="growl" validateClient="true" icon="ui-icon-check"  action="#{loginBean.login}" /></f:facet>                  
+                </p:panelGrid>
+            </h:form>
+        </div>
     </h:body>
-</html> 
+</html>  

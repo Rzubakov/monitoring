@@ -1,4 +1,4 @@
-package jpa;
+package services;
 
 
 import entitys.Category;
