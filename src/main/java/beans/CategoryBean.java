@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.primefaces.model.*;
 import entitys.Category;
 import entitys.Item;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import jpa.CategoryJpa;
 import jpa.ItemJpa;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.NodeSelectEvent;
 
 @ManagedBean(name = "categoryBean")
 @ViewScoped
@@ -21,12 +24,11 @@ public class CategoryBean implements Serializable {
 
     private TreeNode root;
     private TreeNode selectedNode;
-    private Item selectedItem;
     private Category category;
     private Item item;
     private List<Item> items;
     private List<Item> filteredItems;
-
+    private List<Item> selectedItems;
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -39,9 +41,9 @@ public class CategoryBean implements Serializable {
     public void ini() {
         category = new Category();
         item = new Item();
+        items = new ArrayList<>();
         root = new DefaultTreeNode("root", null);
         root.getChildren().add(new DefaultTreeNode(categoryJpa.getRoot(loginBean.getUser()), root));
-        loadNodes((Category) root.getChildren().get(0).getData(), root.getChildren().get(0));
     }
 
     public void addItem() {
@@ -49,20 +51,40 @@ public class CategoryBean implements Serializable {
         item.setUser(loginBean.getUser());
         itemJpa.add(item);
         item = new Item();
+        RequestContext.getCurrentInstance().execute("PF('addItem').hide()");
+        loadItems();
     }
- 
+
+    public void deleteItems() {
+        selectedItems.forEach(i -> {
+            itemJpa.delete(i);
+        });
+        loadItems();
+    }
+
     public void addCategory() {
         category.setParent((Category) selectedNode.getData());
         category.setUser(loginBean.getUser());
         categoryJpa.add(category);
         category = new Category();
-        loadNodes((Category) selectedNode.getData(), selectedNode);
+        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
     }
 
     public void deleteCategory() {
         categoryJpa.delete((Category) selectedNode.getData());
-        loadNodes((Category) selectedNode.getParent().getData(), selectedNode.getParent());
-    } 
+    }
+
+    public void loadCategory() {
+        selectedNode.getChildren().clear();
+        categoryJpa.getCategories((Category) selectedNode.getData()).forEach((Category cat) -> {
+            selectedNode.getChildren().add(new DefaultTreeNode(cat));
+        });
+    }
+
+    public void loadItems() {
+        items.clear();
+        items.addAll(itemJpa.getByCategory((Category) selectedNode.getData(), loginBean.getUser()));
+    }
 
     public TreeNode getRoot() {
         return root;
@@ -74,32 +96,6 @@ public class CategoryBean implements Serializable {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    private void loadNodes(Category root, TreeNode node) {
-        node.getChildren().clear();
-        System.out.println(itemJpa.getCount(root));
-        categoryJpa.getCategories(root).forEach((Category cat) -> {
-            loadNodes(cat, new DefaultTreeNode(cat, node));
-        });
-        getTree();
-    }
-
-    private void getTree() {
-        List<Category> categories = categoryJpa.getCategories(loginBean.getUser());
-        Category rootCategory = categoryJpa.getRoot(loginBean.getUser());
-        
-        categories.forEach(System.out::println);
-        ///createTree(rootCategory, categories);
-    } 
-
-    private void createTree(Category root, List<Category> cats) {
-        cats.forEach(cat -> {
-            if(root.getId()==cat.getParent().getId()){
-                System.out.println(cat);
-                createTree(cat,cats);
-            }
-        });
     }
 
     public TreeNode getSelectedNode() {
@@ -134,12 +130,12 @@ public class CategoryBean implements Serializable {
         this.item = item;
     }
 
-    public Item getSelectedItem() {
-        return selectedItem;
+    public List<Item> getSelectedItems() {
+        return selectedItems;
     }
 
-    public void setSelectedItem(Item selectedItem) {
-        this.selectedItem = selectedItem;
+    public void setSelectedItems(List<Item> selectedItems) {
+        this.selectedItems = selectedItems;
     }
 
     public List<Item> getFilteredItems() {
@@ -149,5 +145,9 @@ public class CategoryBean implements Serializable {
     public void setFilteredItems(List<Item> filteredItems) {
         this.filteredItems = filteredItems;
     }
+
+    public void onNodeSelect(NodeSelectEvent event) {
+        loadItems();
+    }  
 
 }

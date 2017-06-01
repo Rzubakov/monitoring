@@ -23,12 +23,12 @@
                 <p:growl id="growl" showDetail="true" life="5000" sticky="true" />
                 <p:panelGrid columns="2">
                     <f:facet name="header">Вход в ЛК</f:facet>
-                    <p:outputLabel for="email" value="Email:" />
-                    <p:inputText id="email" value="#{loginBean.email}" placeholder="example@mail.ru" validatorMessage="Введите корректный email адрес.">
+                    <p:outputLabel for="email" value="Адрес эл. почты:" />
+                    <p:inputText id="email" value="#{loginBean.email}" validatorMessage="Введите корректный email адрес.">
                         <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />             
                     </p:inputText>
-                    <p:outputLabel for="password" value="Password:"  />
-                    <p:password id="password" value="#{loginBean.password}" placeholder="password" validatorMessage="Пароль должен содержать минимум 5 знаков." >
+                    <p:outputLabel for="password" value="Пароль:"  />
+                    <p:password id="password" value="#{loginBean.password}"  validatorMessage="Пароль должен содержать минимум 5 знаков." >
                         <f:validateLength minimum="5"/>
                     </p:password>
                     <f:facet name="footer"><p:commandButton value="Вход" update="growl" validateClient="true" icon="ui-icon-check"  action="#{loginBean.login}" /></f:facet>                  
