@@ -1,6 +1,5 @@
 package services;
 
-
 import entitys.Category;
 import entitys.Role;
 import javax.annotation.PostConstruct;
@@ -8,12 +7,12 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import entitys.User;
-@Startup 
+
+@Startup
 @Singleton
 public class StandUpService {
-	/*@PersistenceContext
+    /*@PersistenceContext
 	protected EntityManager manager;
 	
 	@PostConstruct
@@ -32,5 +31,5 @@ public class StandUpService {
 		manager.persist(user);
                 manager.persist(category);
 	 
-	}*/	
+	}*/
 }
