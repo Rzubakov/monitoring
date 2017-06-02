@@ -3,17 +3,14 @@ package api;
 import ejb.*;
 import entitys.User;
 //import entitys.Element;
-import interceptors.Logger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/rs")
-@Interceptors(Logger.class)
 @Stateless
 public class ServiceREST {
 
