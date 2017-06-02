@@ -8,14 +8,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import jpa.UserJpa;
+import ejb.UserEjb;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
     @EJB
-    private UserJpa userJpa;
+    private UserEjb userEjb;
     private User user;
     private String email;
     private String password;
@@ -28,7 +28,7 @@ public class LoginBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(email, password);
-            user = userJpa.getUser(email);
+            user = userEjb.getUser(email);
             return "index";
         } catch (ServletException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class LoginBean implements Serializable {
     public User getUser() {
         return user;
     }
-
+ 
     public void setUser(User user) {
         this.user = user;
     }

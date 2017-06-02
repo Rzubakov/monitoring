@@ -6,3 +6,13 @@ html,body{
 .ui-widget,.ui-widget input {
     font-family: Segoe UI,sans-serif;
 }
+#container{
+    display: flex;
+    height: 100%;
+}
+#loginform{
+    margin: auto;
+}
+.red{
+    color:red;
+}

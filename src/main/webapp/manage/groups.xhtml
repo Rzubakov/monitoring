@@ -32,39 +32,39 @@
             <div class="ui-g-12 ui-md-8 ui-lg-8">
                 <h:form id="itemform" >
                     <p:panel header="Управление элементами" >
-                        <p:dataTable var="item" value="#{categoryBean.items}" editable="true" filteredValue="#{categoryBean.filteredItems}" resizableColumns="true" paginator="true" rows="10" id="itemTable" selection="#{categoryBean.selectedItems}"  rowKey="#{item.id}">                   
-                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:dataTable 
+                            var="item" 
+                            value="#{categoryBean.items}" 
+                            editable="true" 
+                            filteredValue="#{categoryBean.filteredItems}" 
+                            resizableColumns="true" 
+                            paginator="true" 
+                            rows="10" 
+                            id="itemTable" 
+                            selection="#{categoryBean.selectedItem}" 
+                            selectionMode="single" 
+                            rowKey="#{item.id}">  
+                            <p:ajax event="rowSelect" update=":itemform:deleteItemButton :itemform:editItemButton editItemForm" />                           
                             <p:column headerText="ID" filterBy="#{item.id}" sortBy="#{item.id}" filterMatchMode="contains">
                                 <h:outputText value="#{item.id}" /> 
                             </p:column>
                             <p:column headerText="Наименование" filterBy="#{item.name}" sortBy="#{item.name}" filterMatchMode="contains">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{item.name}" style="width:100%" required="true" >
-                                            <f:validateLength minimum="2" />
-                                        </p:inputText>
-                                    </f:facet>
-                                </p:cellEditor>
+                                <h:outputText value="#{item.name}" />
                             </p:column>
-
                             <p:column headerText="URL страницы" filterBy="#{item.url}" sortBy="#{item.url}" filterMatchMode="contains">
                                 <h:outputText value="#{item.url}" />
                             </p:column>
-
                             <p:column headerText="Pattern:" filterBy="#{item.path}" sortBy="#{item.path}" filterMatchMode="contains">
                                 <h:outputText value="#{item.path}" />
                             </p:column>
 
-                            <p:column style="width:32px">
-                                <p:rowEditor />
-                            </p:column>
                         </p:dataTable>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Добавить селектор" disabled="#{categoryBean.selectedNode == null}" icon="ui-icon-plus" onclick="PF('addItem').show()" />
-                            <p:commandButton value="Удалить выбранное" update="itemTable"  actionListener="#{categoryBean.deleteItems}" icon="ui-icon-minus" />  
-                        </f:facet>
+                            <p:commandButton disabled="#{categoryBean.selectedNode == null}" icon="ui-icon-plus" onclick="PF('addItem').show()" />
+                            <p:commandButton disabled="#{categoryBean.selectedItem == null}" id="editItemButton" icon="ui-icon-pencil" onclick="PF('editItem').show()" />
+                            <p:commandButton disabled="#{categoryBean.selectedItem == null}" id="deleteItemButton" update="itemform" actionListener="#{categoryBean.deleteItem}" icon="ui-icon-trash" />  
+                        </f:facet> 
                     </p:panel>
                 </h:form>
             </div>
@@ -101,7 +101,27 @@
                         <p:inputText id="pattern" value="#{categoryBean.item.path}"  >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>                          
-                        <p:commandButton value="Добавить" update="growl addItemDialog itemform" actionListener="#{categoryBean.addItem}"  validateClient="true" icon="ui-icon-check" />
+                        <p:commandButton value="Добавить" update="growl addItemForm itemform" actionListener="#{categoryBean.addItem}"  validateClient="true" icon="ui-icon-check" />
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog> 
+            
+            <p:dialog widgetVar="editItem" header="Редактировать селектор" id="editItemDialog" modal="true" resizable="false" draggable="false">
+                <h:form id="editItemForm" >  
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel for="name" value="Наименование:" />
+                        <p:inputText id="name" value="#{categoryBean.selectedItem.name}" >
+                            <f:validateLength minimum="5" maximum="200"/>
+                        </p:inputText>
+                        <p:outputLabel for="url" value="Ссылка:" />
+                        <p:inputText id="url" value="#{categoryBean.selectedItem.url}" >
+                            <f:validateLength minimum="5" maximum="200"/>
+                        </p:inputText> 
+                        <p:outputLabel for="pattern" value="Pattern:" />
+                        <p:inputText id="pattern" value="#{categoryBean.selectedItem.path}"  >
+                            <f:validateLength minimum="5" maximum="200"/>
+                        </p:inputText>                          
+                        <p:commandButton value="Принять" update="growl editItemForm itemform" actionListener="#{categoryBean.updateItem}"  validateClient="true" icon="ui-icon-check" />
                     </p:panelGrid>
                 </h:form>
             </p:dialog> 

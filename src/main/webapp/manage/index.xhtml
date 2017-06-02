@@ -7,7 +7,21 @@
 
     <ui:composition template="../layouts/manage.xhtml">
         <ui:define name="title">Общая</ui:define> 
-        <ui:define name="content">Содержимое общей</ui:define> 
+        <ui:define name="content">
+            <p:panelGrid columns="2">
+                <h:outputText value="ID:" />
+                <h:outputText value="#{loginBean.user.id}" />
+
+                <h:outputText value="Email:" />
+                <h:outputText value="#{loginBean.user.email}" />
+
+                <h:outputText value="Активен:" />
+                <h:outputText value="#{loginBean.user.active}" />
+
+                <h:outputText value="Доступно селекторов:" />
+                <h:outputText value="#{loginBean.user.itemCount}" />                
+            </p:panelGrid>           
+        </ui:define> 
     </ui:composition>   
 </html>
 

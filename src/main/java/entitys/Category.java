@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
-public class Category extends EntityModel {
+public class Category extends EntityModel  {
 
     private static final long serialVersionUID = 2106988008207440715L;
     public static final String BYUSER = "Category.getByUser";

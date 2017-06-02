@@ -2,24 +2,30 @@ package ejb;
 
 import entitys.User;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import jpa.UserJpa;
 
 @Stateless
-public class UserEjb {
+public class UserEjb extends GenericEjb<User> {
 
     public UserEjb() {
+        super(User.class);
     }
 
-    @EJB
-    private UserJpa userJpa;
+    public User getUser(String email) {
+        return (User) manager.createNamedQuery(User.GETBYNAME).setParameter("email", email).getSingleResult();
+    }
 
     public List<User> getActiveUsers(String active) {
-        return userJpa.getActiveUsers(active);
+        return manager.createNamedQuery(User.GETACTIVE).setParameter("active", active).getResultList();
     }
 
-    public User getUser(Long id) {
-        return userJpa.get(id);
+    public List<User> getUsers() {
+        return manager.createNamedQuery(User.GETALL).getResultList();
     }
+    /*
+	public String getPass(String pass) throws NoSuchAlgorithmException{
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+    	md.update(pass.getBytes());
+    	return Base64.encodeBase64String(md.digest());
+	}*/
 }

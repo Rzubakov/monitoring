@@ -1,27 +1,28 @@
 package ejb;
 
+import entitys.Category;
+import java.util.List;
+
+import javax.ejb.Stateless;
 import entitys.Item;
 import entitys.User;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import jpa.ItemJpa;
-
 
 @Stateless
-public class ItemEjb {
+public class ItemEjb extends GenericEjb<Item> {
 
     public ItemEjb() {
+        super(Item.class);
     }
-
-    @EJB
-    private ItemJpa itemJpa;
 
     public List<Item> getByUser(User user) {
-        return itemJpa.getByUser(user);
+        return manager.createNamedQuery(Item.BYUSER).setParameter("user", user).getResultList();
     }
 
-    public Item getItem(Long id) {
-        return itemJpa.get(id);
+    public List<Item> getByCategory(Category category, User user) {
+        return manager.createNamedQuery(Item.BYCATEGORY).setParameter("category", category).setParameter("user", user).getResultList();
+    }
+
+    public Long getCount(Category category) {
+        return (Long) manager.createNamedQuery(Item.GETCOUNT).setParameter("category", category).getSingleResult();
     }
 }

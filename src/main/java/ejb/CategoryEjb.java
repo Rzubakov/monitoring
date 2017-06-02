@@ -1,4 +1,4 @@
-package jpa;
+package ejb;
 
 import java.util.List;
 import entitys.Category;
@@ -6,18 +6,14 @@ import entitys.User;
 import javax.ejb.Stateless;
 
 @Stateless
-public class CategoryJpa extends GenericJpa<Category> {
+public class CategoryEjb extends GenericEjb<Category> {
 
-    public CategoryJpa() {
-        super();
+    public CategoryEjb() {
+        super(Category.class);
     }
 
     public List<Category> getCategories(Category category) {
         return manager.createNamedQuery(Category.GETCHILD).setParameter("parent", category).getResultList();
-    }
-
-    public List<Category> getCategories(User user) {
-        return manager.createNamedQuery(Category.BYUSER).setParameter("user", user).getResultList();
     }
 
     public Category getRoot(User user) {

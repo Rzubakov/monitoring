@@ -5,19 +5,17 @@ import javax.annotation.PostConstruct;
 import org.primefaces.model.*;
 import entitys.Category;
 import entitys.Item;
-import interceptors.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import jpa.CategoryJpa;
-import jpa.ItemJpa;
+import ejb.CategoryEjb;
+import ejb.ItemEjb;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.NodeSelectEvent;
 
-@Logger
 @ManagedBean(name = "categoryBean")
 @ViewScoped
 public class CategoryBean implements Serializable {
@@ -30,14 +28,14 @@ public class CategoryBean implements Serializable {
     private Item item;
     private List<Item> items;
     private List<Item> filteredItems;
-    private List<Item> selectedItems;
+    private Item selectedItem;
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
     @EJB
-    private CategoryJpa categoryJpa;
+    private CategoryEjb categoryEjb;
     @EJB
-    private ItemJpa itemJpa;
+    private ItemEjb itemEjb;
 
     @PostConstruct
     public void ini() {
@@ -45,47 +43,49 @@ public class CategoryBean implements Serializable {
         item = new Item();
         items = new ArrayList<>();
         root = new DefaultTreeNode("root", null);
-        root.getChildren().add(new DefaultTreeNode(categoryJpa.getRoot(loginBean.getUser()), root));
+        root.getChildren().add(new DefaultTreeNode(categoryEjb.getRoot(loginBean.getUser()), root));
     }
 
     public void addItem() {
         item.setCategory((Category) selectedNode.getData());
         item.setUser(loginBean.getUser());
-        itemJpa.add(item);
+        itemEjb.add(item);
         item = new Item();
         RequestContext.getCurrentInstance().execute("PF('addItem').hide()");
         loadItems();
     }
 
-    public void deleteItems() {
-        selectedItems.forEach(i -> {
-            itemJpa.delete(i);
-        });
+    public void deleteItem() {
+        itemEjb.delete(selectedItem);
         loadItems();
-    }
-
+    } 
+    public void updateItem() {
+        itemEjb.update(selectedItem);
+        RequestContext.getCurrentInstance().execute("PF('editItem').hide()");
+        loadItems();
+    } 
     public void addCategory() {
         category.setParent((Category) selectedNode.getData());
         category.setUser(loginBean.getUser());
-        categoryJpa.add(category);
+        categoryEjb.add(category);
         category = new Category();
         RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
     }
 
     public void deleteCategory() {
-        categoryJpa.delete((Category) selectedNode.getData());
+        categoryEjb.delete((Category) selectedNode.getData());
     }
 
     public void loadCategory() {
         selectedNode.getChildren().clear();
-        categoryJpa.getCategories((Category) selectedNode.getData()).forEach((Category cat) -> {
+        categoryEjb.getCategories((Category) selectedNode.getData()).forEach((Category cat) -> {
             selectedNode.getChildren().add(new DefaultTreeNode(cat));
         });
     }
 
     public void loadItems() {
         items.clear();
-        items.addAll(itemJpa.getByCategory((Category) selectedNode.getData(), loginBean.getUser()));
+        items.addAll(itemEjb.getByCategory((Category) selectedNode.getData(), loginBean.getUser()));
     }
 
     public TreeNode getRoot() {
@@ -132,12 +132,12 @@ public class CategoryBean implements Serializable {
         this.item = item;
     }
 
-    public List<Item> getSelectedItems() {
-        return selectedItems;
+    public Item getSelectedItem() {
+        return selectedItem;
     }
 
-    public void setSelectedItems(List<Item> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setSelectedItem(Item selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
     public List<Item> getFilteredItems() {
@@ -150,6 +150,6 @@ public class CategoryBean implements Serializable {
 
     public void onNodeSelect(NodeSelectEvent event) {
         loadItems();
-    }  
+    }
 
 }

@@ -1,19 +1,20 @@
-package jpa;
+package ejb;
 
-import java.lang.reflect.ParameterizedType;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entitys.EntityModel;
 
-public abstract class GenericJpa<T extends EntityModel> {
+public abstract class GenericEjb<T extends EntityModel> {
 
-    public GenericJpa() {
+    public GenericEjb(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 
     @PersistenceContext(unitName = "MySQLDS")
     protected EntityManager manager;
+    private Class<T> entityClass;
 
     public void delete(T t) {
         manager.remove(manager.merge(t));
@@ -24,7 +25,7 @@ public abstract class GenericJpa<T extends EntityModel> {
     }
 
     public T get(Long id) {
-        return (T) manager.find((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0], id);
+        return (T) manager.find(entityClass, id);
     }
 
     public T update(T t) {

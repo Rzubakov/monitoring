@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 @Path("/rs")
 @Stateless
 public class ServiceREST {
-
+/*
     @EJB
     private ItemEjb itemEjb;
     @EJB
@@ -39,5 +39,5 @@ public class ServiceREST {
     public List<User> getItems(@QueryParam("active") String active) {
         return userEjb.getActiveUsers(active);
     }
-
+*/
 }
