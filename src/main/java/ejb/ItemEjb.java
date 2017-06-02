@@ -2,11 +2,13 @@ package ejb;
 
 import entitys.Item;
 import entitys.User;
+import interceptors.Logger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import jpa.ItemJpa;
 
+@Logger
 @Stateless
 public class ItemEjb {
 
