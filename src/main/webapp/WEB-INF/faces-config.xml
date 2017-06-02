@@ -6,71 +6,81 @@
     xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd'
     version='2.2'>
     
-<!-- <lifecycle>
-   <phase-listener>listeners.SessionExpirationPhaseListener</phase-listener>
-</lifecycle>-->
-<!-- Pages -->
- <navigation-rule>
-   <navigation-case>
-   <from-outcome>home</from-outcome>
-   <to-view-id>/index.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>    
+    
+    <!-- Application is started -->
+    <system-event-listener>
+        <system-event-listener-class>
+            listeners.SystemListener
+        </system-event-listener-class>
+        <system-event-class>
+            javax.faces.event.PostConstructApplicationEvent
+        </system-event-class>
+    </system-event-listener>   
+    <!-- <lifecycle>
+       <phase-listener>listeners.SessionExpirationPhaseListener</phase-listener>
+    </lifecycle>-->
+    <!-- Pages -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>    
 
-   <navigation-case>
-   <from-outcome>services</from-outcome>
-   <to-view-id>/services.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>  
+        <navigation-case>
+            <from-outcome>services</from-outcome>
+            <to-view-id>/services.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
      
-   <navigation-case>
-   <from-outcome>contacts</from-outcome>
-   <to-view-id>/contacts.xhtml</to-view-id>
-   <redirect/>
-   </navigation-case>
+        <navigation-case>
+            <from-outcome>contacts</from-outcome>
+            <to-view-id>/contacts.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
                  
-  <navigation-case>
-   <from-outcome>index</from-outcome>
-   <to-view-id>/manage/index.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/manage/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
   
-   <navigation-case>
-   <from-outcome>items</from-outcome>
-   <to-view-id>/manage/items.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
+        <navigation-case>
+            <from-outcome>items</from-outcome>
+            <to-view-id>/manage/items.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
   
-   <navigation-case>
-   <from-outcome>docs</from-outcome>
-   <to-view-id>/manage/docs.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case> 
+        <navigation-case>
+            <from-outcome>docs</from-outcome>
+            <to-view-id>/manage/docs.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
   
-   <navigation-case>
-   <from-outcome>groups</from-outcome>
-   <to-view-id>/manage/groups.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
+        <navigation-case>
+            <from-outcome>groups</from-outcome>
+            <to-view-id>/manage/groups.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
   
-  <navigation-case>
-   <from-outcome>error</from-outcome>
-   <to-view-id>/error.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
   
-  <navigation-case>
-   <from-outcome>login</from-outcome>
-   <to-view-id>/login.xhtml</to-view-id>
-   <redirect/> 
-  </navigation-case>  
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/> 
+        </navigation-case>  
  
-   <navigation-case>
-   <from-outcome>pay</from-outcome>
-   <to-view-id>/manage/payment.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case> 
- </navigation-rule>
+        <navigation-case>
+            <from-outcome>pay</from-outcome>
+            <to-view-id>/manage/payment.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
+    </navigation-rule>
 
 
 </faces-config>
