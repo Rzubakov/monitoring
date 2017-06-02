@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.primefaces.model.*;
 import entitys.Category;
 import entitys.Item;
+import interceptors.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -16,6 +17,7 @@ import jpa.ItemJpa;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.NodeSelectEvent;
 
+@Logger
 @ManagedBean(name = "categoryBean")
 @ViewScoped
 public class CategoryBean implements Serializable {
