@@ -44,7 +44,7 @@
                             selection="#{categoryBean.selectedItem}" 
                             selectionMode="single" 
                             rowKey="#{item.id}">  
-                            <p:ajax event="rowSelect" update=":itemform:deleteItemButton :itemform:editItemButton editItemForm" />                           
+                            <p:ajax event="rowSelect" update="tableButtons" />                           
                             <p:column headerText="ID" filterBy="#{item.id}" sortBy="#{item.id}" filterMatchMode="contains">
                                 <h:outputText value="#{item.id}" /> 
                             </p:column>
@@ -60,8 +60,9 @@
 
                         </p:dataTable>
 
-                        <f:facet name="footer">
+                        <f:facet name="footer" id="tableButtons" >
                             <p:commandButton disabled="#{categoryBean.selectedNode == null}" icon="ui-icon-plus" onclick="PF('addItem').show()" />
+                            <p:commandButton disabled="#{categoryBean.selectedItem == null}" id="copyItemButton" icon="ui-icon-copy" />
                             <p:commandButton disabled="#{categoryBean.selectedItem == null}" id="editItemButton" icon="ui-icon-pencil" onclick="PF('editItem').show()" />
                             <p:commandButton disabled="#{categoryBean.selectedItem == null}" id="deleteItemButton" update="itemform" actionListener="#{categoryBean.deleteItem}" icon="ui-icon-trash" />  
                         </f:facet> 
@@ -79,7 +80,7 @@
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>
                         <f:facet name="footer">
-                            <p:commandButton value="Добавить" update="growl addCategoryDialog" id="addCategoryBtn" actionListener="#{categoryBean.addCategory}" validateClient="true" icon="ui-icon-check" />
+                            <p:commandButton value="Добавить" update="growl " id="addCategoryBtn" actionListener="#{categoryBean.addCategory}" validateClient="true" icon="ui-icon-check" />
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
@@ -101,7 +102,7 @@
                         <p:inputText id="pattern" value="#{categoryBean.item.path}"  >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>                          
-                        <p:commandButton value="Добавить" update="growl addItemForm itemform" actionListener="#{categoryBean.addItem}"  validateClient="true" icon="ui-icon-check" />
+                        <p:commandButton value="Добавить" update="growl itemform" actionListener="#{categoryBean.addItem}"  validateClient="true" icon="ui-icon-check" />
                     </p:panelGrid>
                 </h:form>
             </p:dialog> 
@@ -121,7 +122,7 @@
                         <p:inputText id="pattern" value="#{categoryBean.selectedItem.path}"  >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>                          
-                        <p:commandButton value="Принять" update="growl editItemForm itemform" actionListener="#{categoryBean.updateItem}"  validateClient="true" icon="ui-icon-check" />
+                        <p:commandButton value="Принять" update="growl itemform" actionListener="#{categoryBean.updateItem}"  validateClient="true" icon="ui-icon-check" />
                     </p:panelGrid>
                 </h:form>
             </p:dialog> 
