@@ -13,6 +13,11 @@ html,body{
 #loginform{
     margin: auto;
 }
-.red{
-    color:red;
+
+.ui-paginator-bottom {
+    display: none;
 }
+.ui-icon {
+    height: 16px!important;
+}
+

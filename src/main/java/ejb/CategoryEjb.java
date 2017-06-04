@@ -21,3 +21,4 @@ public class CategoryEjb extends GenericEjb<Category> {
     }
 
 }
+ 

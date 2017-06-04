@@ -29,6 +29,7 @@ public class CategoryBean implements Serializable {
     private List<Item> items;
     private List<Item> filteredItems;
     private Item selectedItem;
+
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -55,15 +56,25 @@ public class CategoryBean implements Serializable {
         loadItems();
     }
 
-    public void deleteItem() {
-        itemEjb.delete(selectedItem);
-        loadItems();
-    } 
     public void updateItem() {
         itemEjb.update(selectedItem);
         RequestContext.getCurrentInstance().execute("PF('editItem').hide()");
         loadItems();
-    } 
+    }
+
+    public void deleteItem() {
+        itemEjb.delete(selectedItem);
+        loadItems();
+        selectedItem=null;
+    }
+
+    public void copyItem() {
+        selectedItem.setId(0);
+        itemEjb.add(selectedItem);
+        loadItems();
+    }
+
+    
     public void addCategory() {
         category.setParent((Category) selectedNode.getData());
         category.setUser(loginBean.getUser());
@@ -79,7 +90,7 @@ public class CategoryBean implements Serializable {
     public void loadCategory() {
         selectedNode.getChildren().clear();
         categoryEjb.getCategories((Category) selectedNode.getData()).forEach((Category cat) -> {
-            selectedNode.getChildren().add(new DefaultTreeNode(cat));
+            selectedNode.getChildren().add(new DefaultTreeNode(cat));    
         });
     }
 

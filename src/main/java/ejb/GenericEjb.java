@@ -14,6 +14,7 @@ public abstract class GenericEjb<T extends EntityModel> {
 
     @PersistenceContext(unitName = "MySQLDS")
     protected EntityManager manager;
+    
     private Class<T> entityClass;
 
     public void delete(T t) {
@@ -32,7 +33,10 @@ public abstract class GenericEjb<T extends EntityModel> {
         manager.merge(t);
         return t;
     }
-
+    public T detach(T t) {
+        manager.detach(t);
+        return t;
+    }
     @PostConstruct
     public void ini() {
         System.out.println("createEntityManager");

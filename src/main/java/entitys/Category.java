@@ -8,10 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=null")
-    ,
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
-    ,
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1"),
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel  {
@@ -47,7 +45,7 @@ public class Category extends EntityModel  {
         this.childCategories = childCategories;
     }
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -93,6 +91,6 @@ public class Category extends EntityModel  {
 
     @Override
     public String toString() {
-        return name;
+        return getId()+" "+getName();
     }
 }
