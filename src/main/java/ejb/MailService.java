@@ -17,7 +17,7 @@ import javax.mail.internet.MimeMessage;
 @Stateless
 public class MailService {
 
-    @Resource(name = "java:jboss/mail/gmail")
+    @Resource(name = "java:jboss/mail/yandex")
     Session session;
 
     public MailService() {

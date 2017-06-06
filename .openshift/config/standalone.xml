@@ -383,6 +383,9 @@
             <mail-session name="gmail" jndi-name="java:jboss/mail/gmail"> 
                 <smtp-server outbound-socket-binding-ref="smtpgmail" ssl="true" username="rzubackov" password="x-qlu5ive"/>
             </mail-session>
+            <mail-session name="ya" jndi-name="java:jboss/mail/yandex"> 
+                <smtp-server outbound-socket-binding-ref="yandex" ssl="true" username="rzubackov" password="x-qlu5ive"/>
+            </mail-session>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
             <server name="default" scheduled-thread-pool-max-size="${messaging.scheduled.thread.pool.max.size}" thread-pool-max-size="${messaging.thread.pool.max.size}">
@@ -549,6 +552,9 @@
         </outbound-socket-binding>
 		<outbound-socket-binding name="smtpgmail">
             <remote-destination host="smtp.gmail.com" port="465"/>
+        </outbound-socket-binding> 
+		<outbound-socket-binding name="yandex">
+            <remote-destination host="smtp.yandex.ru" port="465"/>
         </outbound-socket-binding> 
     </socket-binding-group>
 </server>
