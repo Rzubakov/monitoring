@@ -33,12 +33,13 @@ public class User extends EntityModel{
         super();
     }
 
-    public User(String email, String password, String active, Integer itemCount) {
+    public User(String email, String password, String active, Integer itemCount, String role) {
         super();
         this.email = email;
         this.password = password;
         this.active = active;
         this.itemCount = itemCount;
+        this.role = role;
     }
 
     @JsonIgnore
@@ -64,6 +65,10 @@ public class User extends EntityModel{
     @NotNull
     private Integer itemCount;
 
+    @JsonIgnore
+    @NotNull
+    private String role;
+    
     @JsonIgnore
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -125,6 +130,15 @@ public class User extends EntityModel{
         this.category = category;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    
     @PrePersist
     public void prePersist() {
         this.date = new Date();

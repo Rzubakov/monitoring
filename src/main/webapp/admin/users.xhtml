@@ -30,7 +30,9 @@
                         <p:column headerText="active">
                             <h:outputText value="#{user.active}" /> 
                         </p:column> 
-
+                        <p:column headerText="role">
+                            <h:outputText value="#{user.role}" /> 
+                        </p:column> 
                     </p:dataTable>   
                     <p:commandLink  value="Send" title="Копировать категорию" >
                         <p:confirm header="Копировать категорию" message="Подтверждаете копирование?" icon="ui-icon-alert" />
