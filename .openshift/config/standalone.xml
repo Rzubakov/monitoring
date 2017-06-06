@@ -381,10 +381,10 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
             <mail-session name="gmail" jndi-name="java:jboss/mail/gmail">
-                <smtp-server outbound-socket-binding-ref="gmail" ssl="true" username="rzubackov" password="x-qlu5ive"/>
+                <smtp-server outbound-socket-binding-ref="gmail" ssl="true"  username="r.zubackov" password="x-qlu5ive"/>
             </mail-session>
 
-        </subsystem>
+        </subsystem> 
         <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
             <server name="default" scheduled-thread-pool-max-size="${messaging.scheduled.thread.pool.max.size}" thread-pool-max-size="${messaging.thread.pool.max.size}">
                 <security-setting name="#">
