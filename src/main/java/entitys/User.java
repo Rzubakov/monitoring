@@ -16,16 +16,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.getUsers", query = "select u from User u"),
-    @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email"),     
+    @NamedQuery(name = "User.getUsers", query = "select u from User u")
+    ,
+    @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email")
+    ,     
     @NamedQuery(name = "User.getUsersByActive", query = "select u from User u  WHERE u.active LIKE :active"),})
 @Table(name = "Users")
-public class User extends EntityModel {
+public class User extends EntityModel{
 
-    private static final long serialVersionUID = 4223092205992504237L;
     public static final String GETALL = "User.getUsers";
     public static final String GETBYNAME = "User.getUserByName";
     public static final String GETACTIVE = "User.getUsersByActive";
+    private static final long serialVersionUID = -5398060189052359088L;
 
     public User() {
         super();
@@ -65,9 +67,8 @@ public class User extends EntityModel {
     @JsonIgnore
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;    
+    private Date date;
 
-    
     public Date getDate() {
         return date;
     }
@@ -75,7 +76,7 @@ public class User extends EntityModel {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     public String getActive() {
         return active;
     }
@@ -123,9 +124,9 @@ public class User extends EntityModel {
     public void setCategory(List<Category> category) {
         this.category = category;
     }
-    
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.date = new Date();
     }
 }

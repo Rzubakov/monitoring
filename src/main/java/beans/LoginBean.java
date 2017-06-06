@@ -19,7 +19,7 @@ public class LoginBean implements Serializable {
     private User user;
     private String email;
     private String password;
-
+    private static final long serialVersionUID = -3002395189182737254L;
 
     public LoginBean() {
     }

@@ -19,17 +19,20 @@
                         <p:menuitem value="Общая" outcome="index">
                             <f:param name="i" value="0" />
                         </p:menuitem>
-                        <p:menuitem value="Конфигурирование" outcome="groups" >
+                        <p:menuitem value="Категории" outcome="groups" >
                             <f:param name="i" value="1" />
                         </p:menuitem>
-                        <p:menuitem value="Оплата" outcome="pay" >
+                        <p:menuitem value="Селекторы" outcome="items" >
                             <f:param name="i" value="2" />
-                        </p:menuitem>
-                        <p:menuitem value="Как пользоваться" outcome="docs" >
+                        </p:menuitem>                           
+                        <p:menuitem value="Оплата" outcome="pay" >
                             <f:param name="i" value="3" />
                         </p:menuitem>
-                        <p:menuitem value="Выход" action="#{loginBean.logout}" >
+                        <p:menuitem value="Как пользоваться" outcome="docs" >
                             <f:param name="i" value="4" />
+                        </p:menuitem>
+                        <p:menuitem value="Выход" action="#{loginBean.logout}" >
+                            <f:param name="i" value="5" />
                         </p:menuitem>
                     </p:tabMenu>            
                 </h:form> 
@@ -40,7 +43,12 @@
         <div class="ui-g">
             <ui:insert name="content">Содержимое по умолчанию</ui:insert>
         </div>
-
+        <h:form id="confirmForm">  
+            <p:confirmDialog global="true" >
+                <p:commandButton value="Подтверждаю" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Отказаться" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>  
         <h:outputScript library="javax.faces" name="jsf.js"/> 
     </h:body>
 </html>  

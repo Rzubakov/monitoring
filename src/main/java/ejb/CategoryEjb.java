@@ -20,5 +20,7 @@ public class CategoryEjb extends GenericEjb<Category> {
         return (Category) manager.createNamedQuery(Category.GETROOT).setParameter("user", user).getSingleResult();
     }
 
+    public List<Category> getAll(User user) {
+        return manager.createNamedQuery(Category.GETALL).setParameter("user", user).getResultList();
+    }
 }
- 

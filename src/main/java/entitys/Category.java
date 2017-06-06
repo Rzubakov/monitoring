@@ -8,16 +8,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1"),
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1")
+    ,
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
+    ,
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user AND c.parent.id != null")
+    ,
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
-public class Category extends EntityModel  {
+public class Category extends EntityModel {
 
-    private static final long serialVersionUID = 2106988008207440715L;
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
     public static final String GETROOT = "Category.getRoot";
+    public static final String GETALL = "Category.getAll";
+    private static final long serialVersionUID = 4121663523061263937L;
 
     public Category() {
         super();
@@ -31,26 +36,21 @@ public class Category extends EntityModel  {
     @NotNull
     private String name;
 
+    @NotNull
+    private String description;
+
     @ManyToOne
     private Category parent;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> childCategories;
-
-    public List<Category> getChildCategories() {
-        return childCategories;
-    }
-
-    public void setChildCategories(List<Category> childCategories) {
-        this.childCategories = childCategories;
-    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public User getUser() {
@@ -67,6 +67,14 @@ public class Category extends EntityModel  {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Item> getItems() {
@@ -89,8 +97,16 @@ public class Category extends EntityModel  {
         this.parent = parent;
     }
 
+    public List<Category> getChildCategories() {
+        return childCategories;
+    }
+
+    public void setChildCategories(List<Category> childCategories) {
+        this.childCategories = childCategories;
+    }
+
     @Override
     public String toString() {
-        return getId()+" "+getName();
+        return this.name;
     }
 }

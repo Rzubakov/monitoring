@@ -1,6 +1,7 @@
 package entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,18 +13,19 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Item.getItemsByCategory", query = "select i from Item i WHERE i.category=:category and i.user=:user"),
-    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user"),
-    @NamedQuery(name = "Item.getCount", query = "select count(*) from Item i WHERE i.category=:category"),       
-})
+    @NamedQuery(name = "Item.getItemsByCategory", query = "select i from Item i WHERE i.category=:category and i.user=:user")
+    ,
+    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user")
+    ,
+    @NamedQuery(name = "Item.getCount", query = "select count(*) from Item i WHERE i.category=:category")})
 @Table(name = "Items")
 public class Item extends EntityModel {
 
-    private static final long serialVersionUID = -600277898572273237L;
     public static final String BYUSER = "Item.getByUser";
     public static final String BYCATEGORY = "Item.getItemsByCategory";
     public static final String GETCOUNT = "Item.getCount";
-    
+    private static final long serialVersionUID = 7076621016413789647L;
+
     public Item() {
         super();
     }
@@ -45,13 +47,13 @@ public class Item extends EntityModel {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
-    @JoinColumn(name = "categoryid")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public User getUser() {
