@@ -381,7 +381,7 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
             <mail-session name="gmail" jndi-name="java:jboss/mail/gmail">
-                <smtp-server outbound-socket-binding-ref="gmail" ssl="true" username="rzubackov" password="x-qlu5ive"/>
+                <smtp-server outbound-socket-binding-ref="smtpgmail" ssl="true" username="rzubackov" password="x-qlu5ive"/>
             </mail-session>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
@@ -547,7 +547,7 @@
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
-		<outbound-socket-binding name="gmail">
+		<outbound-socket-binding name="smtpgmail">
             <remote-destination host="smtp.gmail.com" port="465"/>
         </outbound-socket-binding> 
     </socket-binding-group>
