@@ -34,6 +34,7 @@ public class UsersBean implements Serializable {
     public void ini(){
         users = new ArrayList();
         users.addAll(userEjb.getUsers());
+         
     }
     
     public List<User> getUsers() {
@@ -46,7 +47,7 @@ public class UsersBean implements Serializable {
     
     public void sendMail(){
         System.out.println("sending");
-        mailService.send("rzubakov@protonmail.com", "text", "text");
+       mailService.send("rzubakov@protonmail.com", "text", "text");
     }
 
 }
