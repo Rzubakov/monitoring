@@ -28,7 +28,14 @@ public class Category extends EntityModel {
         super();
     }
 
-    public Category(String name, String description) {
+    public Category(String name, String description, User user ) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.user = user;
+    }
+
+    public Category(String name) {
         super();
         this.name = name;
     }

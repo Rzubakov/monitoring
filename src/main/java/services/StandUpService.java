@@ -18,7 +18,6 @@ public class StandUpService {
 
     @PostConstruct
     public void ini() {
-        System.out.println("Create User");
 
         User user = new User("rzubakov@protonmail.com", "/gnplWM1A3X6t7sLuLjnOnqLZjAYewyEJLoq8+H6I4s=", "Y", 10);
         Role role = new Role();
@@ -26,6 +25,7 @@ public class StandUpService {
         role.setEmail(user.getEmail());
         manager.persist(role);
         manager.persist(user);
+        manager.persist(new Category("GlobalRoot", "GlobalRoot", user));
 
     }
 
