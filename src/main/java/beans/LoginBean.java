@@ -30,7 +30,7 @@ public class LoginBean implements Serializable {
         try {
             request.login(email, password);
             user = userEjb.getUser(email);
-            return "index";
+            return "index"; 
         } catch (ServletException e) {
             e.printStackTrace();
             return "error";

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css" />   
+    </h:head>
+    <h:body> 
+        <div class="ui-g" id="container">
+            <h:form id="registerForm" >
+                <p:wizard flowListener="#{registerBean.onFlowProcess}"  >
+                    <p:tab id="personal" title="Персональная информация" >
+                        <p:panel header="Персональная информация">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Имя: *" />
+                                <p:inputText value="#{registerBean.user.firstname}" required="true" label="Имя"/>
+
+                                <h:outputText value="Фамилия: *" />
+                                <p:inputText value="#{registerBean.user.lastname}" required="true" label="Фамилия"/>
+
+                                <h:outputText value="Номер телефона: *" />
+                                <p:inputText value="#{registerBean.user.phone}" required="true" label="Номер телефона"/>                                
+
+                                <h:outputText value="Email: *" />
+                                <p:inputText value="#{registerBean.user.email}" required="true" label="Email"/>
+
+                                <h:outputText value="Пароль: *" />
+                                <p:password id="password" value="#{registerBean.user.password}" required="true"  /> 
+
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confirm" title="Подтверждение аккаунта">
+                        <p:commandButton value="Submit" actionListener="#{registerBean.confirm()}" update="growl" process="@this"/>
+                    </p:tab>
+                </p:wizard>
+            </h:form>
+        </div>
+    </h:body>
+</html>  

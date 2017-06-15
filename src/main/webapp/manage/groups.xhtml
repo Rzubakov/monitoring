@@ -23,6 +23,9 @@
                         <p:column headerText="Описание" sortBy="#{category.description}">
                             <h:outputText value="#{category.description}" />
                         </p:column>
+                        <p:column headerText="Селекторов" sortBy="#{category.items.size()}">
+                            <h:outputText value="#{category.items.size()}" />
+                        </p:column>
                         <p:column headerText="ID" style="width:100px;" sortBy="#{category.id}">
                             <h:outputText value="#{category.id}" style="color:blue;" />
                         </p:column> 
@@ -41,7 +44,7 @@
                                 <p:confirm header="Копировать категорию" message="Подтверждаете копирование?" icon="ui-icon-alert" />
                                 <f:actionListener binding="#{categoryBean.copyCategory(category)}" />
                             </p:commandLink>
-                        </p:column>  
+                        </p:column>                     
                         <f:facet name="footer">
                             <p:commandButton value="Добавить подкатегорию" icon="ui-icon-plus"  disabled="#{categoryBean.selectedNode==null}" onclick="PF('addCategory').show()" />
                         </f:facet>  
@@ -59,12 +62,12 @@
                         <p:inputText id="name" value="#{categoryBean.category.name}" placeholder="Кондиционеры" validatorMessage="Наименование от 5 до 200 знаков." >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>
-                        
+
                         <p:outputLabel for="description" value="Описание:" />
                         <p:inputText id="description" value="#{categoryBean.category.description}" placeholder="Кондиционеры" validatorMessage="Наименование от 5 до 200 знаков." >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText>
-                        
+
                         <f:facet name="footer">
                             <p:commandButton value="Добавить" update="growl" actionListener="#{categoryBean.addCategory}" validateClient="true" icon="ui-icon-check" />
                         </f:facet>

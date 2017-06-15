@@ -15,9 +15,7 @@ public class UserEjb extends GenericEjb<User> {
         return (User) manager.createNamedQuery(User.GETBYNAME).setParameter("email", email).getSingleResult();
     }
 
-    public List<User> getActiveUsers(String active) {
-        return manager.createNamedQuery(User.GETACTIVE).setParameter("active", active).getResultList();
-    }
+ 
 
     public List<User> getUsers() {
         return manager.createNamedQuery(User.GETALL).getResultList();

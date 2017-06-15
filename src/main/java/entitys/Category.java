@@ -8,16 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1")
-    ,
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
-    ,
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user AND c.parent.id != null")
-    ,
+    @NamedQuery(name = "Category.getGlobalRoot", query = "select c from Category c WHERE c.user=1 and c.parent=null"), 
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1"),
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user AND c.parent.id != null"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
 
+    public static final String GETGLOBALROOT = "Category.getGlobalRoot";
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
     public static final String GETROOT = "Category.getRoot";
@@ -28,7 +27,7 @@ public class Category extends EntityModel {
         super();
     }
 
-    public Category(String name, String description, User user ) {
+    public Category(String name, String description, User user) {
         super();
         this.name = name;
         this.description = description;
@@ -43,16 +42,16 @@ public class Category extends EntityModel {
     @NotNull
     private String name;
 
-    @NotNull
     private String description;
 
+    @NotNull
     @ManyToOne
     private Category parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> childCategories;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -114,6 +113,6 @@ public class Category extends EntityModel {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + "(" + this.items.size() + ")";
     }
 }

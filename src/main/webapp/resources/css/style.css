@@ -10,7 +10,7 @@ html,body{
     display: flex;
     height: 100%;
 }
-#loginform{
+#loginform, #registerForm{
     margin: auto;
 }
 
@@ -19,5 +19,10 @@ html,body{
 }
 .ui-icon {
     height: 16px!important;
+}
+
+.ui-messages-error{
+    font-size: 12px;
+    font-weight: normal;
 }
 

@@ -13,10 +13,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Item.getItemsByCategory", query = "select i from Item i WHERE i.category=:category and i.user=:user")
-    ,
-    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user")
-    ,
+    @NamedQuery(name = "Item.getItemsByCategory", query = "select i from Item i WHERE i.category=:category and i.user=:user"),
+    @NamedQuery(name = "Item.getByUser", query = "select i from Item i WHERE i.user=:user"),
     @NamedQuery(name = "Item.getCount", query = "select count(*) from Item i WHERE i.category=:category")})
 @Table(name = "Items")
 public class Item extends EntityModel {
