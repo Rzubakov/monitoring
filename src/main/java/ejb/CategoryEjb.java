@@ -3,9 +3,12 @@ package ejb;
 import java.util.List;
 import entitys.Category;
 import entitys.User;
+import interceptors.Logged;
 import javax.ejb.Stateless;
 
+
 @Stateless
+@Logged
 public class CategoryEjb extends GenericEjb<Category> {
 
     public CategoryEjb() {

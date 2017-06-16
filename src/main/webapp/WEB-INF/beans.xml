@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="java.sun.com/xml/ns/javaee"
-xmlns:xsi="www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="java.sun.com/xml/ns/javaee java.sun.com/xml/ns/javaee/beans_1_0.xsd">
-<interceptors>
-    <class>interceptors.LoggerImp</class>
-</interceptors>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"  
+       version="1.1" bean-discovery-mode="all">  
+    <interceptors>      
+        <class>interceptors.LoggedInterceptor</class>   
+    </interceptors> 
     
 </beans>
- 
+  

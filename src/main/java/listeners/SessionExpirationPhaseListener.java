@@ -30,6 +30,8 @@ public class SessionExpirationPhaseListener implements PhaseListener {
     public void afterPhase(PhaseEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest httpRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        
         if (httpRequest.getRequestedSessionId() != null && !httpRequest.isRequestedSessionIdValid()) {
            String facesRequestHeader = httpRequest.getHeader("Faces-Request");
             if (facesRequestHeader != null && facesRequestHeader.equals("partial/ajax")) {

@@ -1,14 +1,17 @@
 package ejb;
 
 import entitys.User;
+import interceptors.Logged;
 import java.util.List;
 import javax.ejb.Stateless;
 
+
 @Stateless
+@Logged
 public class UserEjb extends GenericEjb<User> {
 
     public UserEjb() {
-        super(User.class);
+        super(User.class); 
     }
 
     public User getUser(String email) {

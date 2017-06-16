@@ -8,9 +8,9 @@
     
     
     
-    <!-- <lifecycle>
+    <lifecycle>
        <phase-listener>listeners.SessionExpirationPhaseListener</phase-listener>
-    </lifecycle>-->
+    </lifecycle>
     <!-- Pages -->
     <navigation-rule>
         <navigation-case>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -13,7 +14,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.getUsers", query = "select u from User u"),
+    @NamedQuery(name = "User.getUsers", query = "select u from User u")
+    ,
     @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email")
 })
 @Table(name = "Users")
@@ -44,6 +46,10 @@ public class User extends EntityModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Category> category;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Profile profile;
+    
+    
     @NotNull
     private String email;
 
@@ -53,10 +59,6 @@ public class User extends EntityModel {
 
     @NotNull
     private String role;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Profile profile;
-    
 
     public void setEmail(String email) {
         this.email = email;

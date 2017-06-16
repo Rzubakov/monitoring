@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import entitys.Item;
 import entitys.User;
+import interceptors.Logged;
 
 @Stateless
+@Logged
 public class ItemEjb extends GenericEjb<Item> {
 
     public ItemEjb() {
