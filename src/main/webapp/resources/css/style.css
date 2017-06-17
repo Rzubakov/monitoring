@@ -10,7 +10,7 @@ html,body{
     display: flex;
     height: 100%;
 }
-#loginform, #registerForm{
+#loginForm, #registerForm{
     margin: auto;
 }
 

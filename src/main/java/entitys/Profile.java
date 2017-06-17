@@ -44,7 +44,6 @@ public class Profile extends EntityModel {
     private Date dateCreate;
 
     @OneToOne
-    @NotNull
     @JoinColumn(name = "user_id")
     private User user;
 

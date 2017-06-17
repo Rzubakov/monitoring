@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"   
-xmlns:f="http://xmlns.jcp.org/jsf/core">  
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
     <h:head>
+        <title><ui:insert name="title">Вход</ui:insert></title>
         <h:outputStylesheet library="css" name="style.css" />   
     </h:head>
     <h:body> 
         <div class="ui-g" id="container">
-            <h:form id="loginform">  
-                <p:growl id="growl" showDetail="true" life="5000" sticky="true" />
-                <p:panelGrid columns="2">
-                    <f:facet name="header">Вход в ЛК</f:facet>
-                    <p:outputLabel for="email" value="Адрес эл. почты:" />
-                    <p:inputText id="email" value="#{loginBean.email}" validatorMessage="Введите корректный email адрес.">
-                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />             
-                    </p:inputText>
-                    <p:outputLabel for="password" value="Пароль:"  />
-                    <p:password id="password" value="#{loginBean.password}"  validatorMessage="Пароль должен содержать минимум 5 знаков." >
-                        <f:validateLength minimum="5"/>
-                    </p:password>
-                    <f:facet name="footer">
-                        <p:commandButton value="Вход" update="growl" validateClient="true" icon="ui-icon-check"  action="#{loginBean.login}" />
-                    </f:facet>                  
-                </p:panelGrid>
+            <h:form id="loginForm">  
+                <p:panel header="Вход">
+                    <p:messages/>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Адрес эл. почты:" />
+                        <p:inputText  id="email" value="#{loginBean.email}" required="true" label="Адрес эл. почты" requiredMessage="Введите адрес эл. почты" validatorMessage="Введите корректный email адрес.">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>     
+                        <h:outputText value="Пароль:" />
+                        <p:password id="password" value="#{loginBean.password}" required="true" requiredMessage="Введите пароль" validatorMessage="Пароль должен содержать минимум 5 знаков.">
+                            <f:validateLength minimum="5"/>
+                        </p:password>
+                        <p:commandButton value="Вход" validateClient="true" update="@form" icon="ui-icon-check"  action="#{loginBean.login}" />
+                        <p:button outcome="register" value="Регистрация" />                 
+                    </h:panelGrid>
+                </p:panel>
             </h:form>
         </div>
     </h:body>

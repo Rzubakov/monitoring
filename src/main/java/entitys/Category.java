@@ -7,19 +7,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Category.getGlobalRoot", query = "select c from Category c WHERE c.user=1 and c.parent=null"), 
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1"),
+@NamedQueries({ 
     @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user AND c.parent.id != null"),
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
 
-    public static final String GETGLOBALROOT = "Category.getGlobalRoot";
+
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
-    public static final String GETROOT = "Category.getRoot";
     public static final String GETALL = "Category.getAll";
     private static final long serialVersionUID = 4121663523061263937L;
 

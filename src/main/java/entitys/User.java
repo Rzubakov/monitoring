@@ -1,21 +1,23 @@
 package entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.getUsers", query = "select u from User u")
-    ,
+    @NamedQuery(name = "User.getUsers", query = "select u from User u"),
     @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email")
 })
 @Table(name = "Users")
@@ -30,14 +32,6 @@ public class User extends EntityModel {
         super();
     }
 
-    public User(String email, String password, String role, Profile profile) {
-        super();
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.profile = profile;
-    }
-
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Item> items;
@@ -46,11 +40,12 @@ public class User extends EntityModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Category> category;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Profile profile;
-    
-    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @NotNull
+    private Profile profile;
+
+    @NotNull
+    @Column(unique = true)
     private String email;
 
     @JsonIgnore
@@ -106,6 +101,11 @@ public class User extends EntityModel {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.setRole("USER");
     }
 
 }

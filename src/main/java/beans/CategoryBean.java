@@ -37,7 +37,7 @@ public class CategoryBean implements Serializable {
         allCategory = new ArrayList();
         root = new DefaultTreeNode("root", null);
         allCategory.addAll(categoryEjb.getAll(loginBean.getUser()));
-        root.getChildren().add(buildTree(allCategory, categoryEjb.getRoot(loginBean.getUser())));
+        
     }
 
     public void addCategory() {
