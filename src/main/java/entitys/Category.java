@@ -7,13 +7,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQueries({ 
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user"),
+@NamedQueries({
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
+    ,
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user")
+    ,
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
-
 
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
@@ -38,17 +39,16 @@ public class Category extends EntityModel {
 
     @NotNull
     private String name;
-
     private String description;
 
-    @NotNull
     @ManyToOne
+    @NotNull
     private Category parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Category> childCategories;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)

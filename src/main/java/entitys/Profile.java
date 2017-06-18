@@ -39,9 +39,21 @@ public class Profile extends EntityModel {
     @NotNull
     private String company;
 
+    @OneToOne(mappedBy = "profile")
     @NotNull
+    private User user;
+
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date dateCreate;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getPhone() {
         return phone;

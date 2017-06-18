@@ -18,7 +18,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.getUsers", query = "select u from User u"),
+    @NamedQuery(name = "User.getUsers", query = "select u from User u")
+    ,
     @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email")
 })
 @Table(name = "Users")
@@ -42,7 +43,6 @@ public class User extends EntityModel {
     private List<Category> category;
 
     @OneToOne
-    @MapsId
     @NotNull
     private Profile profile;
 
