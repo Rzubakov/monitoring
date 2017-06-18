@@ -43,18 +43,6 @@ public class Profile extends EntityModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreate;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getPhone() {
         return phone;
     }

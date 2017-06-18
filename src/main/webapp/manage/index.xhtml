@@ -8,14 +8,29 @@
     <ui:composition template="../layouts/manage.xhtml">
         <ui:define name="title">Общая</ui:define> 
         <ui:define name="content">
-            <p:panelGrid columns="2">
+            <h:panelGrid columns="2" cellpadding="10">
                 <h:outputText value="ID:" />
                 <h:outputText value="#{loginBean.user.id}" />
 
                 <h:outputText value="Email:" />
                 <h:outputText value="#{loginBean.user.email}" />
-               
-            </p:panelGrid>           
+                
+                <h:outputText value="Имя:" />
+                <h:outputText value="#{loginBean.user.profile.firstname}" /> 
+
+                <h:outputText value="Фамилия: " />
+                <h:outputText value="#{loginBean.user.profile.lastname}" />  
+                
+                <h:outputText value="Компания: " />
+                <h:outputText value="#{loginBean.user.profile.company}" /> 
+ 
+                <h:outputText value="Номер телефона: " />
+                <h:outputText value="#{loginBean.user.profile.phone}" />             
+  
+                <h:outputText value="Дата регистрации: " />
+                <h:outputText value="#{loginBean.user.profile.dateCreate}" />  
+             
+            </h:panelGrid>           
         </ui:define> 
     </ui:composition>   
 </html>

@@ -48,6 +48,7 @@ public class RegisterBean implements Serializable {
     private void createUser() {
         User user = new User();
         Profile profile = new Profile();
+        
         profile.setCompany(company);
         profile.setFirstname(firstname);
         profile.setLastname(lastname);
