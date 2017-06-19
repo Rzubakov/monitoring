@@ -13,7 +13,6 @@ import java.util.List;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
-
 @ManagedBean(name = "categoryBean")
 @ViewScoped
 public class CategoryBean implements Serializable {
@@ -24,7 +23,7 @@ public class CategoryBean implements Serializable {
     private TreeNode selectedNode;
     private Category category;
     private List<Category> allCategory;
-    
+
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -37,7 +36,7 @@ public class CategoryBean implements Serializable {
         allCategory = new ArrayList();
         root = new DefaultTreeNode("root", null);
         allCategory.addAll(categoryEjb.getAll(loginBean.getUser()));
-        
+        root.getChildren().add(buildTree(allCategory, allCategory.get(0)));
     }
 
     public void addCategory() {
@@ -101,6 +100,5 @@ public class CategoryBean implements Serializable {
         });
         return temp;
     }
-    
 
 }

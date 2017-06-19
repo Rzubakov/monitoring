@@ -8,10 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent")
-    ,
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c  WHERE  c.user=:user")
-    ,
+    
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
