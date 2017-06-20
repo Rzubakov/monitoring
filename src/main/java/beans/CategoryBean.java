@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import ejb.CategoryEjb;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
@@ -42,8 +44,8 @@ public class CategoryBean implements Serializable {
         category.setUser(loginBean.getUser());
         categoryEjb.add(category);
         category = new Category();
-        loadData();
         RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
+        loadData();
     }
 
     public void deleteCategory(Category category) {
