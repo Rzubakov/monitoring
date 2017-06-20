@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import ejb.CategoryEjb;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
@@ -22,8 +20,10 @@ public class CategoryBean implements Serializable {
     private static final long serialVersionUID = 2745513588634191629L;
 
     private TreeNode root;
-    private TreeNode selectedNode;
+
     private Category category;
+    private Category edit;
+    private Category parent;
     private List<Category> categories;
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
@@ -40,11 +40,17 @@ public class CategoryBean implements Serializable {
     }
 
     public void addCategory() {
-        category.setParent((Category) selectedNode.getData());
+        category.setParent(parent);
         category.setUser(loginBean.getUser());
         categoryEjb.add(category);
-        category = new Category();
         RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
+        loadData();
+        category = new Category();
+    }
+
+    public void updateCategory() {
+        categoryEjb.update(edit);
+        RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
         loadData();
     }
 
@@ -59,16 +65,47 @@ public class CategoryBean implements Serializable {
         loadData();
     }
 
+    public void collapseAll() {
+        setExpandedRecursively(root, false);
+    }
+
+    public void expandAll() {
+        setExpandedRecursively(root, true);
+    }
+
+    private void setExpandedRecursively(final TreeNode node, final boolean expanded) {
+        node.getChildren().forEach((child) -> {
+            setExpandedRecursively(child, expanded);
+        });
+        node.setExpanded(expanded);
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Category getEdit() {
+        return edit;
+    }
+
+    public void setEdit(Category edit) {
+        this.edit = edit;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
     public TreeNode getRoot() {
         return root;
-    }
-
-    public TreeNode getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
     }
 
     public Category getCategory() {

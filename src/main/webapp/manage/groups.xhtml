@@ -11,46 +11,46 @@
             <!-- Tree -->
             <div class="ui-g-12 ui-md-12 ui-lg-12">
                 <h:form id="catform">
-                    <p:panel id="categoryPanel" >
-                        <p:treeTable value="#{categoryBean.root}" var="category"  id="categoryTable" selectionMode="single" selection="#{categoryBean.selectedNode}" rows="10" emptyMessage="Нет данных для отображения." >
-                            <p:ajax event="select"  update="addCategoryBtn" />
-                            <f:facet name="header">
-                                Просмотр категорий
-                            </f:facet>
-                            <p:column headerText="Наименование" sortBy="#{category.name}">
-                                <h:outputText value="#{category.name}" />
-                            </p:column>
-                            <p:column headerText="Описание" sortBy="#{category.description}" priority="4">
-                                <h:outputText value="#{category.description}" />
-                            </p:column>
-                            <p:column headerText="ID" style="width:100px;" sortBy="#{category.id}" priority="6">
-                                <h:outputText value="#{category.id}" style="color:blue;" />
-                            </p:column> 
-
-                            <p:column style="width:32px" toggleable="false" priority="4">
-                                <p:rowEditor  rendered="#{category.parent.id!=1}" />
-                            </p:column>   
-
-                            <p:column style="width:20px" toggleable="false" priority="4">
-                                <p:commandLink   title="Удалить категорию"  styleClass="ui-icon ui-icon-trash" update="catform" rendered="#{category.parent.id!=1}" >
-                                    <p:confirm header="Удалить категорию" message="Подтверждаете удаление?" icon="ui-icon-alert"  />
-                                    <f:actionListener binding="#{categoryBean.deleteCategory(category)}" />
-                                </p:commandLink>
-                            </p:column>
-
-                            <p:column style="width:20px" toggleable="false" priority="4">
-                                <p:commandLink   title="Копировать категорию" styleClass="ui-icon ui-icon-copy" update="catform" rendered="#{category.parent.id!=1}">
-                                    <p:confirm header="Копировать категорию" message="Подтверждаете копирование?" icon="ui-icon-alert" />
-                                    <f:actionListener binding="#{categoryBean.copyCategory(category)}" />
-                                </p:commandLink>
-                            </p:column>             
-
-                            <f:facet name="footer">
-                                <p:commandButton value="Добавить подкатегорию" id="addCategoryBtn" icon="ui-icon-plus"  disabled="#{categoryBean.selectedNode==null}" onclick="PF('addCategory').show()" />
-                            </f:facet>  
-                        </p:treeTable>
-                    </p:panel>
-                    <p:blockUI block="categoryPanel" trigger="categoryTable addCategoryForm:addBtn"/>
+                    <p:treeTable value="#{categoryBean.root}" var="category" id="categoryTable"   emptyMessage="Нет данных для отображения." >
+                        <f:facet name="header">
+                            Категории
+                        </f:facet>
+                        <p:column headerText="Наименование">
+                            <h:outputText value="#{category.name}" />
+                        </p:column>
+                        <p:column headerText="Описание" priority="4">
+                            <h:outputText value="#{category.description}" />
+                        </p:column>
+                        <p:column headerText="ID" style="width:100px;" priority="6" >
+                            <h:outputText value="#{category.id}" style="color:blue;" />
+                        </p:column> 
+                        <p:column style="width:20px"  >
+                            <p:commandLink   title="Добавить подкатегорию" style="background-color: #a4fbfb;" onclick="PF('addCategory').show()"  styleClass="ui-icon ui-icon-plus">
+                                <f:actionListener binding="#{categoryBean.setParent(category)}"  />
+                            </p:commandLink>
+                        </p:column> 
+                        <p:column style="width:20px"  >
+                            <p:commandLink   title="Редактировать категорию" style="background-color: #7cfe7c;" onclick="PF('editCategory').show()" rendered="#{category.parent.id!=1}" update="editCategoryForm" styleClass="ui-icon ui-icon-pencil">
+                                <f:actionListener binding="#{categoryBean.setEdit(category)}"  />
+                            </p:commandLink>
+                        </p:column> 
+                        <p:column style="width:20px" >
+                            <p:commandLink   title="Удалить категорию" style="background-color: #fe7474;" styleClass="ui-icon ui-icon-trash"  update="catform" rendered="#{category.parent.id!=1}" >
+                                <p:confirm header="Удалить категорию" message="Подтверждаете удаление?" icon="ui-icon-alert"  />
+                                <f:actionListener binding="#{categoryBean.deleteCategory(category)}" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column style="width:20px" >
+                            <p:commandLink   title="Копировать категорию" style="background-color: #feee74;" styleClass="ui-icon ui-icon-copy" update="catform" rendered="#{category.parent.id!=1}">
+                                <p:confirm header="Копировать категорию" message="Подтверждаете копирование?" icon="ui-icon-alert" />
+                                <f:actionListener binding="#{categoryBean.copyCategory(category)}" />
+                            </p:commandLink>
+                        </p:column>   
+                        <f:facet name="footer">
+                            Всего: #{categoryBean.categories.size()}
+                        </f:facet>
+                    </p:treeTable>
+                    <p:blockUI block="categoryTable" trigger="categoryTable" />
                 </h:form>
             </div>   
             <!-- end tree -->
@@ -61,14 +61,32 @@
                     <p:panel>
                         <h:panelGrid columns="2" cellpadding="10">
                             <p:outputLabel for="name" value="Наименование:" />
-                            <p:inputText id="name" value="#{categoryBean.category.name}" placeholder="Кондиционеры" validatorMessage="Наименование от 5 до 200 знаков." >
+                            <p:inputText id="name" value="#{categoryBean.category.name}" placeholder="5-200 символов" validatorMessage="Наименование от 5 до 200 знаков." >
                                 <f:validateLength minimum="5" maximum="200"/>
                             </p:inputText>
                             <p:outputLabel for="description" value="Описание:" />
-                            <p:inputText id="description" value="#{categoryBean.category.description}" placeholder="Кондиционеры" validatorMessage="Наименование от 5 до 200 знаков." >
+                            <p:inputText id="description" value="#{categoryBean.category.description}" placeholder="5-200 символов" validatorMessage="Описание от 5 до 200 знаков." >
                                 <f:validateLength minimum="5" maximum="200"/>
                             </p:inputText>
-                            <p:commandButton value="Добавить" update="growl catform:categoryTable @form" id="addBtn" actionListener="#{categoryBean.addCategory}" validateClient="true" icon="ui-icon-check" />
+                            <p:commandButton value="Добавить" update="growl catform @form" id="addBtn" actionListener="#{categoryBean.addCategory}" validateClient="true" icon="ui-icon-check" />
+                        </h:panelGrid>
+                    </p:panel>    
+                </h:form>
+            </p:dialog> 
+
+            <p:dialog widgetVar="editCategory" modal="true" resizable="false" header="Редактировать категорию" draggable="false">
+                <h:form id="editCategoryForm"> 
+                    <p:panel>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="name" value="Наименование:" />
+                            <p:inputText id="name" value="#{categoryBean.edit.name}" placeholder="5-200 символов" validatorMessage="Наименование от 5 до 200 знаков." >
+                                <f:validateLength minimum="5" maximum="200"/>
+                            </p:inputText>
+                            <p:outputLabel for="description" value="Описание:" />
+                            <p:inputText id="description" value="#{categoryBean.edit.description}" placeholder="5-200 символов" validatorMessage="Описание от 5 до 200 знаков." >
+                                <f:validateLength minimum="5" maximum="200"/>
+                            </p:inputText>
+                            <p:commandButton value="Изменить" update="growl catform" id="editBtn" actionListener="#{categoryBean.updateCategory()}" validateClient="true" icon="ui-icon-check" />
                         </h:panelGrid>
                     </p:panel>    
                 </h:form>

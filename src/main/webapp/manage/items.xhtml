@@ -10,7 +10,7 @@
         <ui:define name="content">
             <div class="ui-g-12 ui-md-12 ui-lg-12">
                 <h:form id="itemform" >
-                    <p:panel id="itemPanel" >
+                    <p:panel id="itemPanel" style="padding:0px">
                         <p:dataTable var="item" value="#{itemBean.items}" rowKey="#{item.id}" editable="true" filteredValue="#{itemBean.filteredItems}"  paginator="true" rows="10" id="itemTable" 
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"   emptyMessage="Нет данных для отображения." >  
