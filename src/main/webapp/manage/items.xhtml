@@ -52,7 +52,7 @@
                             </f:facet>  
                         </p:dataTable>
                     </p:panel>
-                    <p:blockUI block="itemPanel" trigger="itemTable addItemForm:addBtn"/> 
+                    <p:blockUI block="itemPanel" trigger="itemTable addItemForm:addBtn selectForm:selectCategoryBtn"/> 
                 </h:form>
             </div>
 
@@ -77,13 +77,13 @@
             </p:dialog>     
 
             <p:dialog widgetVar="selectCategory" header="Выбор категории" modal="true" resizable="false" draggable="false">
-                <h:form id="select">  
+                <h:form id="selectForm">  
                     <p:tree value="#{categoryBean.root}" var="node" dynamic="true" selectionMode="single" selection="#{itemBean.selectedNode}" >
                         <p:treeNode>
                             <h:outputText value="#{node}" />
                         </p:treeNode>
                     </p:tree>
-                    <p:commandButton value="Выбрать" onclick="PF('selectCategory').hide()" actionListener="#{itemBean.loadData}" update="itemform"  icon="ui-icon-check" />
+                    <p:commandButton value="Выбрать" id="selectCategoryBtn" onclick="PF('selectCategory').hide()" actionListener="#{itemBean.loadData}" update="itemform"  icon="ui-icon-check" />
                 </h:form>
             </p:dialog>  
 
