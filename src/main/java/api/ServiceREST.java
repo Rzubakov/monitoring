@@ -35,13 +35,15 @@ public class ServiceREST {
     @GET
     @Path("/login")
     @Produces(MediaType.TEXT_PLAIN)
-    public void login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
+    public String login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
         try {
             request.login(login, password);
+            
         } catch (ServletException ex) {
             ex.printStackTrace();
             throw new SecurityException("User is unauthorized.");
         }
+        return "good login";
     }
 
     /* @GET
