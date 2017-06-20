@@ -18,7 +18,7 @@
             <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>    
-
+  
         <navigation-case>
             <from-outcome>services</from-outcome>
             <to-view-id>/services.xhtml</to-view-id>
@@ -60,6 +60,12 @@
             <to-view-id>/manage/items.xhtml</to-view-id>
             <redirect/>
         </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/manage/profile.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         
         <navigation-case>
             <from-outcome>error</from-outcome>

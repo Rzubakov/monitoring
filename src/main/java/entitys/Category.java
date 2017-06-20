@@ -8,16 +8,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE c.parent=:parent"),
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.parent=1 and c.user=:user"),   
     @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id"),
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE  c.parent=:parent"),  
+    @NamedQuery(name = "Category.getItemCount", query = "select count(*) from Item i WHERE i.category=:category"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
-
+    public static final String GETROOT = "Category.getRoot";
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
     public static final String GETALL = "Category.getAll";
+    public static final String GETITEMCOUNT = "Category.getItemCount";  
     private static final long serialVersionUID = 4121663523061263937L;
 
     public Category() {
@@ -40,14 +42,14 @@ public class Category extends EntityModel {
     private String name;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
     private Category parent;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Category> childCategories;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -109,6 +111,6 @@ public class Category extends EntityModel {
 
     @Override
     public String toString() {
-        return this.name + "(" + this.items.size() + ")";
+        return this.name;
     }
 }

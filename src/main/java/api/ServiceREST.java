@@ -34,16 +34,14 @@ public class ServiceREST {
     @PermitAll
     @GET
     @Path("/login")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public void login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
         try {
             request.login(login, password);
-            
         } catch (ServletException ex) {
             ex.printStackTrace();
             throw new SecurityException("User is unauthorized.");
         }
-        return "good login";
     }
 
     /* @GET
@@ -57,7 +55,7 @@ public class ServiceREST {
     @Path("/getusers")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getItems(@QueryParam("active") String active) {
-        return userEjb.getUsers();
+        return null;
     }
 
 }

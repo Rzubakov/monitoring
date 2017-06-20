@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "itemBean")

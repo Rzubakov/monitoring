@@ -22,8 +22,7 @@ public class CategoryBean implements Serializable {
     private TreeNode root;
     private TreeNode selectedNode;
     private Category category;
-    private List<Category> allCategory;
-
+    private List<Category> categories;
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -33,10 +32,9 @@ public class CategoryBean implements Serializable {
     @PostConstruct
     public void ini() {
         category = new Category();
-        allCategory = new ArrayList();
         root = new DefaultTreeNode("root", null);
-        allCategory.addAll(categoryEjb.getAll(loginBean.getUser()));
-        root.getChildren().add(buildTree(allCategory, allCategory.get(0)));
+        categories = new ArrayList<>();
+        loadData();
     }
 
     public void addCategory() {
@@ -44,23 +42,19 @@ public class CategoryBean implements Serializable {
         category.setUser(loginBean.getUser());
         categoryEjb.add(category);
         category = new Category();
+        loadData();
         RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
     }
 
     public void deleteCategory(Category category) {
         categoryEjb.delete(category);
+        loadData();
     }
 
     public void copyCategory(Category category) {
         category.setId(0);
         categoryEjb.add(category);
-    }
-
-    public void loadCategory() {
-        selectedNode.getChildren().clear();
-        categoryEjb.getCategories((Category) selectedNode.getData()).forEach((Category cat) -> {
-            selectedNode.getChildren().add(new DefaultTreeNode(cat));
-        });
+        loadData();
     }
 
     public TreeNode getRoot() {
@@ -89,6 +83,13 @@ public class CategoryBean implements Serializable {
 
     public void setLoginBean(LoginBean loginBean) {
         this.loginBean = loginBean;
+    }
+
+    private void loadData() {
+        root.getChildren().clear();
+        categories.clear();
+        categories.addAll(categoryEjb.getAll(loginBean.getUser()));
+        root.getChildren().add(buildTree(categories, categories.get(0)));
     }
 
     private TreeNode buildTree(List<Category> cats, Category category) {

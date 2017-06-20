@@ -1,13 +1,11 @@
 package entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -18,8 +16,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.getUsers", query = "select u from User u")
-    ,
+    @NamedQuery(name = "User.getUsers", query = "select u from User u"),
     @NamedQuery(name = "User.getUserByName", query = "select u from User u WHERE u.email=:email")
 })
 @Table(name = "Users")
@@ -28,6 +25,7 @@ public class User extends EntityModel {
     public static final String GETALL = "User.getUsers";
     public static final String GETBYNAME = "User.getUserByName";
     public static final String GETACTIVE = "User.getUsersByActive";
+
     private static final long serialVersionUID = -5398060189052359088L;
 
     public User() {
@@ -42,7 +40,7 @@ public class User extends EntityModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Category> category;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @NotNull
     private Profile profile;
 

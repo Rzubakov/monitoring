@@ -3,9 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      
-      >
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="../layouts/manage.xhtml">
         <ui:define name="title">Управление селекторами</ui:define> 
@@ -57,7 +55,7 @@
 
             <p:dialog widgetVar="addItem" header="Добавить селектор" modal="true" resizable="false" draggable="false">
                 <h:form id="addItemForm">  
-                    <p:panelGrid columns="2" >
+                    <h:panelGrid columns="2" cellpadding="10">
                         <p:outputLabel for="name" value="Наименование:" />
                         <p:inputText id="name" value="#{itemBean.item.name}" >
                             <f:validateLength minimum="5" maximum="200"/>
@@ -70,7 +68,7 @@
                         <p:inputText id="pattern" value="#{itemBean.item.path}"  >
                             <f:validateLength minimum="5" maximum="200"/>
                         </p:inputText> 
-                    </p:panelGrid>
+                    </h:panelGrid>
                     <p:commandButton value="Добавить"  update="@form growl itemform" actionListener="#{itemBean.addItem}"  validateClient="true" icon="ui-icon-check" />
                 </h:form>
             </p:dialog>     

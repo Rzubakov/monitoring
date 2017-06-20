@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <ui:composition template="../layouts/manage.xhtml">
+        <ui:define name="title">Общая</ui:define> 
+        <ui:define name="content">
+            
+
+            <h:panelGrid columns="2" cellpadding="10">
+                
+                <h:outputText value="Имя:" />
+                <h:outputText value="#{loginBean.user.profile.firstname}" /> 
+
+                <h:outputText value="Фамилия: " />
+                <h:outputText value="#{loginBean.user.profile.lastname}" />  
+                
+                <h:outputText value="Компания: " />
+                <h:outputText value="#{loginBean.user.profile.company}" /> 
+ 
+                <h:outputText value="Номер телефона: " />
+                <h:outputText value="#{loginBean.user.profile.phone}" />             
+  
+                <h:outputText value="Дата регистрации: " />
+                <h:outputText value="#{loginBean.user.profile.dateCreate}" />  
+             
+            </h:panelGrid>          
+        </ui:define> 
+    </ui:composition>   
+</html>
+

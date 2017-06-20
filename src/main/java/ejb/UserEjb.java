@@ -1,5 +1,6 @@
 package ejb;
 
+import entitys.Profile;
 import entitys.User;
 import interceptors.Logged;
 import java.util.List;
@@ -21,5 +22,6 @@ public class UserEjb extends GenericEjb<User> {
     public List<User> getUsers() {
         return manager.createNamedQuery(User.GETALL).getResultList();
     }
+
 
 }

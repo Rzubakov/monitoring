@@ -2,7 +2,7 @@ package entitys;
 
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "Profiles")
 public class Profile extends EntityModel {
-
     private static final long serialVersionUID = -6672076827652794004L;
 
     public Profile() {
@@ -39,7 +38,7 @@ public class Profile extends EntityModel {
     @NotNull
     private String company;
 
-    @OneToOne(mappedBy = "profile")
+    @OneToOne(mappedBy = "profile",fetch = FetchType.LAZY)
     @NotNull
     private User user;
 
