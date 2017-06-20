@@ -47,8 +47,6 @@
                             <f:facet name="footer">
                                 <p:commandButton value="Выбрать категорию" icon="ui-icon-check"  onclick="PF('selectCategory').show()" />
                                 <p:commandButton value="Добавить селектор" icon="ui-icon-plus" disabled="#{itemBean.selectedNode==null}" onclick="PF('addItem').show()" />
-                                <p:commandButton value="Выбрать колонки" id="toggler" type="button" disabled="#{itemBean.selectedNode==null}" icon="ui-icon-calculator" />
-                                <p:columnToggler datasource="itemTable"  trigger="toggler" />
                             </f:facet>  
                         </p:dataTable>
                     </p:panel>
