@@ -34,7 +34,7 @@ public class ServiceREST {
     @PermitAll
     @GET
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public void login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
         try {
             request.login(login, password);
@@ -55,7 +55,7 @@ public class ServiceREST {
     @Path("/getusers")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getItems(@QueryParam("active") String active) {
-        return null;
+        return userEjb.getUsers();
     }
 
 }

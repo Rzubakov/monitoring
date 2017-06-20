@@ -9,12 +9,12 @@ public class BaseListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-
+        System.out.println("sessionCreated");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-
+        System.out.println("sessionDestroyed");
     }
 
 }
