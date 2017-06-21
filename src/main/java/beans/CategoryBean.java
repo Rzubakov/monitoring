@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import ejb.CategoryEjb;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
@@ -43,15 +45,15 @@ public class CategoryBean implements Serializable {
         category.setParent(parent);
         category.setUser(loginBean.getUser());
         categoryEjb.add(category);
-        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
-        loadData();
         category = new Category();
+        loadData();
+        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
     }
 
     public void updateCategory() {
         categoryEjb.update(edit);
-        RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
         loadData();
+        RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
     }
 
     public void deleteCategory(Category category) {
@@ -127,7 +129,7 @@ public class CategoryBean implements Serializable {
     private void loadData() {
         root.getChildren().clear();
         categories.clear();
-        categories.addAll(categoryEjb.getAll(loginBean.getUser()));
+        categories.addAll(categoryEjb.getCategories(loginBean.getUser()));
         root.getChildren().add(buildTree(categories, categories.get(0)));
     }
 

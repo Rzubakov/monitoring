@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import ejb.UserEjb;
+import java.util.Locale;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
@@ -19,6 +20,7 @@ public class LoginBean implements Serializable {
     private User user;
     private String email;
     private String password;
+
     private static final long serialVersionUID = -3002395189182737254L;
 
     public LoginBean() {
@@ -34,7 +36,7 @@ public class LoginBean implements Serializable {
         } catch (ServletException e) {
             e.printStackTrace();
             return "error";
-        } 
+        }
 
     }
 

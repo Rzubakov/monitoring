@@ -18,7 +18,6 @@ import javax.mail.internet.MimeMessage;
 
 @Asynchronous
 @Stateless
-@RolesAllowed({"ROBOT","ADMIN","USER"})
 public class MailService {
 
     @Resource(name = "java:jboss/mail/gmail")
@@ -27,7 +26,7 @@ public class MailService {
     public MailService() {
     }
     
-
+    @RolesAllowed({"ROBOT","ADMIN","USER"})
     public void send(String addresses, String topic, String textMessage) {
 
         try {

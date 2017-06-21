@@ -3,23 +3,29 @@ package entitys;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.parent=1 and c.user=:user"),   
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id"),
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE  c.parent=:parent"),  
-    @NamedQuery(name = "Category.getItemCount", query = "select count(*) from Item i WHERE i.category=:category"),
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.parent=1 and c.user=:user")
+    ,   
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id")
+    ,
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE  c.parent=:parent")
+    ,  
+    @NamedQuery(name = "Category.getItemCount", query = "select count(*) from Item i WHERE i.category=:category")
+    ,
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
+
     public static final String GETROOT = "Category.getRoot";
     public static final String BYUSER = "Category.getByUser";
     public static final String GETCHILD = "Category.getChild";
     public static final String GETALL = "Category.getAll";
-    public static final String GETITEMCOUNT = "Category.getItemCount";  
+    public static final String GETITEMCOUNT = "Category.getItemCount";
     private static final long serialVersionUID = 4121663523061263937L;
 
     public Category() {
@@ -39,7 +45,9 @@ public class Category extends EntityModel {
     }
 
     @NotNull
+    @Size(max = 100)
     private String name;
+    @Size(max = 100)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)

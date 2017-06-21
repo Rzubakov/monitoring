@@ -5,7 +5,9 @@ import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entitys.EntityModel;
+import javax.annotation.security.RolesAllowed;
 
+@RolesAllowed({"ROBOT","ADMIN","USER"})
 public abstract class GenericEjb<T extends EntityModel> {
 
     public GenericEjb(Class<T> entityClass) {

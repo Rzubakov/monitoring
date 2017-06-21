@@ -32,17 +32,17 @@ public class ServiceREST {
     }
 
     @PermitAll
-    @POST
+    @GET
     @Path("/login")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response login(@FormParam("login") String login,@FormParam("password") String password, @Context HttpServletRequest request) {
+    public String login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
         try {
             request.login(login, password);
         } catch (ServletException ex) {
             ex.printStackTrace();
             throw new SecurityException("User is unauthorized.");
         }
-        return Response.ok().entity("Good").build();
+        return "logined";
     }
 
     /* @GET
