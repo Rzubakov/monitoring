@@ -10,47 +10,43 @@
         <ui:define name="content">
             <div class="ui-g-12 ui-md-12 ui-lg-12">
                 <h:form id="itemform" >
-                    <p:panel id="itemPanel" style="padding:0px">
-                        <p:dataTable var="item" value="#{itemBean.items}" rowKey="#{item.id}" editable="true" filteredValue="#{itemBean.filteredItems}"  paginator="true" rows="10" id="itemTable" 
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"   emptyMessage="Нет данных для отображения." >  
-                            <f:facet name="header">
-                                Управление селекторами #{itemBean.selectedNode}
-                            </f:facet>                        
-                            <p:column headerText="Наименование" filterBy="#{item.name}" sortBy="#{item.name}" filterMatchMode="contains">
-                                <h:outputText value="#{item.name}" />
-                            </p:column>
-                            <p:column headerText="URL страницы" filterBy="#{item.url}" sortBy="#{item.url}" filterMatchMode="contains" priority="4">
-                                <h:outputText value="#{item.url}" />
-                            </p:column>
-                            <p:column headerText="Pattern:" filterBy="#{item.path}" sortBy="#{item.path}" filterMatchMode="contains" priority="4">
-                                <h:outputText value="#{item.path}" />
-                            </p:column>
-                            <p:column headerText="ID" filterBy="#{item.id}" sortBy="#{item.id}" style="width:100px;" filterMatchMode="contains" priority="6">
-                                <h:outputText value="#{item.id}" style="color:blue;"/> 
-                            </p:column>
-                            <p:column style="width:32px" toggleable="false" priority="4">
-                                <p:rowEditor />
-                            </p:column>   
-                            <p:column style="width:20px" toggleable="false" priority="4">
-                                <p:commandLink  update="itemform" title="Удалить селектор"  styleClass="ui-icon ui-icon-trash">
-                                    <p:confirm header="Удалить селектор" message="Подтверждаете удаление?" icon="ui-icon-alert" />
-                                    <f:actionListener binding="#{itemBean.deleteItem(item)}" />
-                                </p:commandLink>
-                            </p:column>
-                            <p:column style="width:20px" toggleable="false" priority="4">
-                                <p:commandLink  update="itemform" title="Копировать селектор" styleClass="ui-icon ui-icon-copy">
-                                    <p:confirm header="Копировать селектор" message="Подтверждаете копирование?" icon="ui-icon-alert" />
-                                    <f:actionListener binding="#{itemBean.copyItem(item)}" />
-                                </p:commandLink>
-                            </p:column>      
-                            <f:facet name="footer">
-                                <p:commandButton value="Выбрать категорию" icon="ui-icon-check"  onclick="PF('selectCategory').show()" />
-                                <p:commandButton value="Добавить селектор" icon="ui-icon-plus" disabled="#{itemBean.selectedNode==null}" onclick="PF('addItem').show()" />
-                            </f:facet>  
-                        </p:dataTable>
-                    </p:panel>
-                    <p:blockUI block="itemPanel" trigger="itemTable addItemForm:addBtn selectForm:selectCategoryBtn"/> 
+                    <p:dataTable var="item" value="#{itemBean.items}" rowKey="#{item.id}" editable="true" filteredValue="#{itemBean.filteredItems}"  paginator="true" rows="10" id="itemTable" 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"   emptyMessage="Нет данных для отображения." >  
+                        <f:facet name="header">
+                            Управление селекторами #{itemBean.selectedNode}
+                        </f:facet>                        
+                        <p:column headerText="Наименование" filterBy="#{item.name}" sortBy="#{item.name}" filterMatchMode="contains">
+                            <h:outputText value="#{item.name}" />
+                        </p:column>
+                        <p:column headerText="URL страницы" filterBy="#{item.url}" sortBy="#{item.url}" filterMatchMode="contains" priority="4">
+                            <h:outputText value="#{item.url}" />
+                        </p:column>
+                        <p:column headerText="Pattern:" filterBy="#{item.path}" sortBy="#{item.path}" filterMatchMode="contains" priority="4">
+                            <h:outputText value="#{item.path}" />
+                        </p:column>
+                        <p:column headerText="ID" filterBy="#{item.id}" sortBy="#{item.id}" style="width:100px;" filterMatchMode="contains" priority="6">
+                            <h:outputText value="#{item.id}" style="color:blue;"/> 
+                        </p:column>
+
+                        <p:column style="width:20px" toggleable="false" priority="4">
+                            <p:commandLink  update="itemform" title="Удалить селектор" style="background-color: #fe7474;" styleClass="ui-icon ui-icon-trash">
+                                <p:confirm header="Удалить селектор" message="Подтверждаете удаление?" icon="ui-icon-alert" />
+                                <f:actionListener binding="#{itemBean.deleteItem(item)}" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column style="width:20px" toggleable="false" priority="4">
+                            <p:commandLink  update="itemform" title="Копировать селектор" style="background-color: #feee74;" styleClass="ui-icon ui-icon-copy">
+                                <p:confirm header="Копировать селектор" message="Подтверждаете копирование?" icon="ui-icon-alert" />
+                                <f:actionListener binding="#{itemBean.copyItem(item)}" />
+                            </p:commandLink>
+                        </p:column>      
+                        <f:facet name="footer">
+                            <p:commandButton value="Выбрать категорию" icon="ui-icon-check"  onclick="PF('selectCategory').show()" />
+                            <p:commandButton value="Добавить селектор" icon="ui-icon-plus" disabled="#{itemBean.selectedNode==null}" onclick="PF('addItem').show()" />
+                        </f:facet>  
+                    </p:dataTable>
+                    <p:blockUI block="itemTable" trigger="itemTable"/> 
                 </h:form>
             </div>
 
