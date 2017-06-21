@@ -55,8 +55,8 @@ public class ServiceREST {
     @GET
     @Path("/getusers")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getItems(@QueryParam("active") String active) {
-        return null;
+    public List<User> getUsers() {
+        return userEjb.getUsers();
     }
 
 }
