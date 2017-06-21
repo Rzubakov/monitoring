@@ -27,9 +27,9 @@
                             <h:outputText value="#{category.id}" style="color:blue;" />
                         </p:column> 
                         <p:column style="width:20px"  >
-                            <p:commandLink   title="#{messages.addcategory}" style="background-color: #a4fbfb;" onclick="PF('addCategory').show()"  styleClass="ui-icon ui-icon-plus">
+                            <p:commandButton   title="#{messages.addcategory}" style="background-color: #a4fbfb;" onclick="PF('addCategory').show()"  icon="fa fa-plus" >
                                 <f:actionListener binding="#{categoryBean.setParent(category)}"  />
-                            </p:commandLink>
+                            </p:commandButton>
                         </p:column> 
                         <p:column style="width:20px"  >
                             <p:commandLink   title="#{messages.editcategory}" style="background-color: #7cfe7c;" onclick="PF('editCategory').show()" rendered="#{category.parent.id!=1}" update="editCategoryForm" styleClass="ui-icon ui-icon-pencil">
