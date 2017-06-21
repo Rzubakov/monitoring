@@ -4,11 +4,13 @@ import entitys.Profile;
 import entitys.User;
 import interceptors.Logged;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 
 
 @Stateless
 @Logged
+@RolesAllowed({"ROBOT","ADMIN","USER"})
 public class UserEjb extends GenericEjb<User> {
 
     public UserEjb() {

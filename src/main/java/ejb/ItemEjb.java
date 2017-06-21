@@ -7,9 +7,11 @@ import javax.ejb.Stateless;
 import entitys.Item;
 import entitys.User;
 import interceptors.Logged;
+import javax.annotation.security.RolesAllowed;
 
 @Stateless
 @Logged
+@RolesAllowed({"ROBOT","ADMIN","USER"})
 public class ItemEjb extends GenericEjb<Item> {
 
     public ItemEjb() {

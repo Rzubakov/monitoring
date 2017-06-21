@@ -4,10 +4,12 @@ import java.util.List;
 import entitys.Category;
 import entitys.User;
 import interceptors.Logged;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 
 @Stateless
 @Logged
+@RolesAllowed({"ROBOT","ADMIN","USER"})
 public class CategoryEjb extends GenericEjb<Category> {
 
     public CategoryEjb() {

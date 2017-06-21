@@ -6,6 +6,7 @@
 package ejb;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -17,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 
 @Asynchronous
 @Stateless
+@RolesAllowed({"ROBOT","ADMIN","USER"})
 public class MailService {
 
     @Resource(name = "java:jboss/mail/gmail")
