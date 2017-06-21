@@ -34,7 +34,7 @@ public class ServiceREST {
     @PermitAll
     @GET
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String login(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletRequest request) {
         try {
             request.login(login, password);
