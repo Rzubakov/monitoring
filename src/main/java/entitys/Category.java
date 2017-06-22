@@ -53,8 +53,9 @@ public class Category extends EntityModel {
     @JoinColumn(name = "user_id")
     private User user;
    
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
+    @JoinColumn(name = "parent_id")
     private Category parent;  
     
     @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
