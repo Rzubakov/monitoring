@@ -19,12 +19,13 @@ public abstract class GenericEjb<T extends EntityModel> {
     
     private Class<T> entityClass;
 
-    public void delete(T t) {
+    public void delete(T t) {        
         manager.remove(manager.merge(t));
     }
 
-    public void add(T t) {
+    public T add(T t) {
         manager.persist(t);
+        return t;
     }
 
     public T get(Long id) {

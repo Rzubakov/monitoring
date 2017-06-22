@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.TreeNode;
+
 
 @ManagedBean(name = "itemBean")
 @ViewScoped
@@ -22,8 +22,8 @@ public class ItemBean implements Serializable {
     private LoginBean loginBean;
     private Item item;
     private List<Item> items;
-    private List<Item> filteredItems;
-    private TreeNode selectedNode;
+
+    private Category category;
     private Item selectedItem;
     private static final long serialVersionUID = -1605493260723628519L;
     @EJB
@@ -33,15 +33,16 @@ public class ItemBean implements Serializable {
     public void ini() {
         item = new Item();
         items = new ArrayList<>();
+        System.out.println("construct itemBean");
     }
 
     public void loadData() {
         items.clear();
-        items.addAll(itemEjb.getByCategory((Category) selectedNode.getData(), loginBean.getUser()));
+        items.addAll(itemEjb.getByCategory(category, loginBean.getUser()));
     }
 
     public void addItem() {
-        item.setCategory((Category) selectedNode.getData());
+        item.setCategory(category);
         item.setUser(loginBean.getUser());
         itemEjb.add(item);
         item = new Item();
@@ -90,12 +91,12 @@ public class ItemBean implements Serializable {
         this.items = items;
     }
 
-    public TreeNode getSelectedNode() {
-        return selectedNode;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Item getSelectedItem() {
@@ -106,12 +107,6 @@ public class ItemBean implements Serializable {
         this.selectedItem = selectedItem;
     }
 
-    public List<Item> getFilteredItems() {
-        return filteredItems;
-    }
 
-    public void setFilteredItems(List<Item> filteredItems) {
-        this.filteredItems = filteredItems;
-    }
 
 }

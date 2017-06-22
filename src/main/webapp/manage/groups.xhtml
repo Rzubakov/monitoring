@@ -10,10 +10,9 @@
 
         <ui:define name="title">#{messages.title}</ui:define> 
         <ui:define name="content">
-            <!-- Tree -->
             <div class="ui-g-12 ui-md-12 ui-lg-12">
                 <h:form id="catform">
-                    <p:treeTable value="#{categoryBean.root}" var="category" id="categoryTable"   emptyMessage="#{messages.none}" >
+                    <p:treeTable value="#{categoryBean.root}" var="category" id="categoryTable" selectionMode="single" selection="#{categoryBean.selectedNode}" emptyMessage="#{messages.none}" >
                         <f:facet name="header">
                             #{messages.title}
                         </f:facet>
@@ -25,39 +24,19 @@
                         </p:column>
                         <p:column headerText="ID" style="width:100px;" priority="6" >
                             <h:outputText value="#{category.id}" style="color:blue;" />
-                        </p:column> 
-                        <p:column style="width:20px"  >
-                            <p:commandButton   title="#{messages.addcategory}" style="background-color: #a4fbfb;" onclick="PF('addCategory').show()"  icon="fa fa-plus" >
-                                <f:actionListener binding="#{categoryBean.setParent(category)}"  />
-                            </p:commandButton>
-                        </p:column> 
-                        <p:column style="width:20px"  >
-                            <p:commandLink   title="#{messages.editcategory}" style="background-color: #7cfe7c;" onclick="PF('editCategory').show()" rendered="#{category.parent.id!=1}" update="editCategoryForm" styleClass="ui-icon ui-icon-pencil">
-                                <f:actionListener binding="#{categoryBean.setEdit(category)}"  />
-                            </p:commandLink>
-                        </p:column> 
-                        <p:column style="width:20px" >
-                            <p:commandLink   title="#{messages.delete}"  style="background-color: #fe7474;" styleClass="ui-icon ui-icon-trash"  update="catform" rendered="#{category.parent.id!=1}" >
-                                <p:confirm header="#{messages.delete}" message="#{messages.confirm_delete}" icon="ui-icon-alert"  />
-                                <f:actionListener binding="#{categoryBean.deleteCategory(category)}" />
-                            </p:commandLink>
-                        </p:column> 
-                        <p:column style="width:20px" >
-                            <p:commandLink  title="#{messages.copy}" style="background-color: #feee74;" styleClass="ui-icon ui-icon-copy" update="catform" rendered="#{category.parent.id!=1}">
-                                <p:confirm header="#{messages.copy}" message="#{messages.confirm_copy}" icon="ui-icon-alert" />
-                                <f:actionListener binding="#{categoryBean.copyCategory(category)}" />
-                            </p:commandLink>
                         </p:column>    
                         <f:facet name="footer">
-                            Всего: #{categoryBean.categories.size()}
+                            <p:commandButton title="#{messages.addcategory}"  styleClass="ui-icon ui-icon-plus"   onclick="PF('addCategory').show()"  /> 
+                            <p:commandButton title="#{messages.editcategory}" styleClass="ui-icon ui-icon-pencil" onclick="PF('editCategory').show()" /> 
+                            <p:commandButton title="#{messages.delete}"       styleClass="ui-icon ui-icon-trash"  actionListener="#{categoryBean.delete}"   update="categoryTable" />
+                            <p:commandButton title="#{messages.copy}"         styleClass="ui-icon ui-icon-copy"   actionListener="#{categoryBean.copy}"     update="categoryTable"  />
                         </f:facet>
                     </p:treeTable>
                     <p:blockUI block="categoryTable" trigger="categoryTable" />
                 </h:form>
             </div>   
-            <!-- end tree -->
-            <!-- end table -->
-            <!-- categogy window -->
+
+
             <p:dialog widgetVar="addCategory" modal="true" resizable="false" header="#{messages.addcategory}" draggable="false">
                 <h:form id="addCategoryForm"> 
                     <p:panel id="addCategoryPanel" >
@@ -79,28 +58,8 @@
                 </h:form>
             </p:dialog> 
 
-            <p:dialog widgetVar="editCategory" modal="true" resizable="false" header="#{messages.editcategory}" draggable="false">
-                <h:form id="editCategoryForm"> 
-                    <p:panel id="editCategoryPanel">
-                        <p:message for="name" />
-                        <p:message for="description" />
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputText value="#{messages.name}*:" />
-                            <p:inputText id="name" value="#{categoryBean.edit.name}"  requiredMessage="#{errors.name_req}" required="true"  validatorMessage="#{errors.name}" >
-                                <f:validateLength maximum="100"/>
-                            </p:inputText>
-                            <h:outputText value="#{messages.description}" />
-                            <p:inputText id="description" value="#{categoryBean.edit.description}"  validatorMessage="#{errors.description}" >
-                                <f:validateLength maximum="100"/>
-                            </p:inputText>
-                            <p:commandButton value="#{messages.edit}" update="catform:categoryTable @form" id="editBtn" actionListener="#{categoryBean.updateCategory()}" validateClient="true" icon="ui-icon-check" />
-                        </h:panelGrid>
-                    </p:panel>   
-                    <p:blockUI block="editCategoryPanel" trigger="editBtn" />
-                </h:form>
-            </p:dialog> 
-            <!--end categogy window -->
-            <!--end item window -->            
+  
+            
         </ui:define> 
     </ui:composition>         
 </html>

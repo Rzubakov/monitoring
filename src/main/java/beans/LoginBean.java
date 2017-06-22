@@ -9,7 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import ejb.UserEjb;
-import java.util.Locale;
+import javax.annotation.PostConstruct;
+
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
@@ -25,7 +26,11 @@ public class LoginBean implements Serializable {
 
     public LoginBean() {
     }
-
+    @PostConstruct
+    public void ini(){
+        System.out.println("construct loginBean");
+    }
+    
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();

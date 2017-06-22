@@ -9,14 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.parent=1 and c.user=:user")
-    ,   
-    @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id")
-    ,
-    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE  c.parent=:parent")
-    ,  
-    @NamedQuery(name = "Category.getItemCount", query = "select count(*) from Item i WHERE i.category=:category")
-    ,
+    @NamedQuery(name = "Category.getRoot", query = "select c from Category c WHERE c.user=:user and c.parent=1"),   
+    @NamedQuery(name = "Category.getAll", query = "select c from Category c WHERE  c.user=:user order by c.id"),
+    @NamedQuery(name = "Category.getChild", query = "select c from Category c WHERE  c.parent=:parent"),  
+    @NamedQuery(name = "Category.getItemCount", query = "select count(*) from Item i WHERE i.category=:category"),
     @NamedQuery(name = "Category.getByUser", query = "select c from Category c WHERE c.user=:user order by c.id"),})
 @Table(name = "Categories")
 public class Category extends EntityModel {
@@ -50,21 +46,24 @@ public class Category extends EntityModel {
     @Size(max = 100)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull
-    private Category parent;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Category> childCategories;
-
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Item> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @JoinColumn(name = "user_id")
     private User user;
+   
+    @ManyToOne
+    @NotNull
+    private Category parent;  
+    
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Category> childCategories;
 
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Item> items;
+
+    
     public User getUser() {
         return user;
     }

@@ -8,10 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import ejb.CategoryEjb;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
@@ -22,11 +19,9 @@ public class CategoryBean implements Serializable {
     private static final long serialVersionUID = 2745513588634191629L;
 
     private TreeNode root;
-
     private Category category;
-    private Category edit;
-    private Category parent;
-    private List<Category> categories;
+    private TreeNode selectedNode;
+    
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -35,75 +30,42 @@ public class CategoryBean implements Serializable {
 
     @PostConstruct
     public void ini() {
-        category = new Category();
         root = new DefaultTreeNode("root", null);
-        categories = new ArrayList<>();
-        loadData();
+        category = new Category();
+        root.getChildren().add(buildTree(categoryEjb.getRoot(loginBean.getUser())));
     }
 
     public void addCategory() {
-        category.setParent(parent);
+        category.setParent((Category) selectedNode.getData());
         category.setUser(loginBean.getUser());
-        categoryEjb.add(category);
-        category = new Category();
-        loadData();
+        selectedNode.getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
         RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
+        category = new Category();
     }
 
-    public void updateCategory() {
-        categoryEjb.update(edit);
-        loadData();
+    public void delete() {
+        categoryEjb.delete((Category) selectedNode.getData());
+        selectedNode.getParent().getChildren().remove(selectedNode);
+    }
+
+    public void update() {
+        categoryEjb.update((Category) selectedNode.getData());
         RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
     }
 
-    public void deleteCategory(Category category) {
-        categoryEjb.delete(category);
-        loadData();
-    }
-
-    public void copyCategory(Category category) {
+    public void copy() {
+        category = (Category) selectedNode.getData();
         category.setId(0);
-        categoryEjb.add(category);
-        loadData();
+        selectedNode.getParent().getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
+        category = new Category();
     }
 
-    public void collapseAll() {
-        setExpandedRecursively(root, false);
+    public TreeNode getSelectedNode() {
+        return selectedNode;
     }
 
-    public void expandAll() {
-        setExpandedRecursively(root, true);
-    }
-
-    private void setExpandedRecursively(final TreeNode node, final boolean expanded) {
-        node.getChildren().forEach((child) -> {
-            setExpandedRecursively(child, expanded);
-        });
-        node.setExpanded(expanded);
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public Category getEdit() {
-        return edit;
-    }
-
-    public void setEdit(Category edit) {
-        this.edit = edit;
-    }
-
-    public Category getParent() {
-        return parent;
-    }
-
-    public void setParent(Category parent) {
-        this.parent = parent;
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
     }
 
     public TreeNode getRoot() {
@@ -126,21 +88,13 @@ public class CategoryBean implements Serializable {
         this.loginBean = loginBean;
     }
 
-    private void loadData() {
-        root.getChildren().clear();
-        categories.clear();
-        categories.addAll(categoryEjb.getCategories(loginBean.getUser()));
-        root.getChildren().add(buildTree(categories, categories.get(0)));
-    }
-
-    private TreeNode buildTree(List<Category> cats, Category category) {
-        TreeNode temp = new DefaultTreeNode(category);
-        cats.forEach(c -> {
-            if (c.getParent().getId() == category.getId()) {
-                temp.getChildren().add(buildTree(cats, c));
-            }
+    private TreeNode buildTree(Category root) {
+        TreeNode node = new DefaultTreeNode(root);
+        root.getChildCategories().forEach(cat->{
+            node.getChildren().add(new DefaultTreeNode(cat));
+            buildTree(cat);
         });
-        return temp;
+        return node;
     }
-
+ 
 }

@@ -14,6 +14,12 @@ public class CategoryEjb extends GenericEjb<Category> {
     public CategoryEjb() {
         super(Category.class);
     }
+
+    @RolesAllowed({"ROBOT", "ADMIN", "USER"})
+    public Category getRoot(User user) {
+        return (Category) manager.createNamedQuery(Category.GETROOT).setParameter("user", user).getSingleResult();
+    }
+
     @RolesAllowed({"ROBOT", "ADMIN", "USER"})
     public List<Category> getCategories(User user) {
         return manager.createNamedQuery(Category.GETALL).setParameter("user", user).getResultList();
