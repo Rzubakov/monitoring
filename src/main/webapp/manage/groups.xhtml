@@ -33,7 +33,7 @@
                                 <p:commandButton title="#{messages.addcategory}"  onclick="PF('addCategory').show()"      disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-plus"/>
                                 <p:commandButton title="#{messages.editcategory}" onclick="PF('editCategory').show()"     disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-edit"/>
                                 <p:commandButton title="#{messages.delete}"       actionListener="#{categoryBean.delete}" disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-trash"/>
-                            </p:outputPanel>
+                            </p:outputPanel> 
                         </f:facet>
                     </p:treeTable>      
                     <p:blockUI block="categoryTable" trigger="categoryTable" />
