@@ -8,9 +8,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import ejb.CategoryEjb;
-
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 @ManagedBean(name = "categoryBean")
 @ViewScoped
@@ -19,9 +20,8 @@ public class CategoryBean implements Serializable {
     private static final long serialVersionUID = 2745513588634191629L;
 
     private TreeNode root;
+    private TreeNode selected;
     private Category category;
-    private TreeNode selectedNode;
-    
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
 
@@ -30,42 +30,28 @@ public class CategoryBean implements Serializable {
 
     @PostConstruct
     public void ini() {
-        root = new DefaultTreeNode("root", null);
         category = new Category();
+        root = new DefaultTreeNode("root", null);
         root.getChildren().add(buildTree(categoryEjb.getRoot(loginBean.getUser())));
     }
 
-    public void addCategory() {
-        category.setParent((Category) selectedNode.getData());
+    public void add() {
+        category.setParent((Category) selected.getData());
         category.setUser(loginBean.getUser());
-        selectedNode.getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
-        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
+        selected.getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
         category = new Category();
-    }
-
-    public void delete() {
-        categoryEjb.delete((Category) selectedNode.getData());
-        selectedNode.getParent().getChildren().remove(selectedNode);
+        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
     }
 
     public void update() {
-        categoryEjb.update((Category) selectedNode.getData());
+
+        categoryEjb.update(category);
         RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
     }
 
-    public void copy() {
-        category = (Category) selectedNode.getData();
-        category.setId(0);
-        selectedNode.getParent().getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
-        category = new Category();
-    }
-
-    public TreeNode getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
+    public void delete() {
+        categoryEjb.delete((Category) selected.getData());
+        selected.getParent().getChildren().remove(selected);
     }
 
     public TreeNode getRoot() {
@@ -80,6 +66,14 @@ public class CategoryBean implements Serializable {
         this.category = category;
     }
 
+    public TreeNode getSelected() {
+        return selected;
+    }
+
+    public void setSelected(TreeNode selected) {
+        this.selected = selected;
+    }
+
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -88,13 +82,13 @@ public class CategoryBean implements Serializable {
         this.loginBean = loginBean;
     }
 
-    private TreeNode buildTree(Category root) {
-        TreeNode node = new DefaultTreeNode(root);
-        root.getChildCategories().forEach(cat->{
-            node.getChildren().add(new DefaultTreeNode(cat));
-            buildTree(cat);
+    private TreeNode buildTree(Category parent) {
+        System.out.println("Get childs for: " + parent);
+        TreeNode node = new DefaultTreeNode(parent);
+        categoryEjb.getChild(parent).forEach(child -> {
+            node.getChildren().add(buildTree(child));
         });
         return node;
     }
- 
+
 }

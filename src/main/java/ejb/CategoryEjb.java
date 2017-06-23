@@ -1,9 +1,9 @@
 package ejb;
 
-import java.util.List;
 import entitys.Category;
 import entitys.User;
 import interceptors.Logged;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 
@@ -19,9 +19,10 @@ public class CategoryEjb extends GenericEjb<Category> {
     public Category getRoot(User user) {
         return (Category) manager.createNamedQuery(Category.GETROOT).setParameter("user", user).getSingleResult();
     }
-
+    
     @RolesAllowed({"ROBOT", "ADMIN", "USER"})
-    public List<Category> getCategories(User user) {
-        return manager.createNamedQuery(Category.GETALL).setParameter("user", user).getResultList();
-    }
+    public List<Category> getChild(Category parent) {
+        return manager.createNamedQuery(Category.GETCHILD).setParameter("parent", parent).getResultList();
+    } 
+ 
 }

@@ -19,8 +19,9 @@ public abstract class GenericEjb<T extends EntityModel> {
     
     private Class<T> entityClass;
 
-    public void delete(T t) {        
-        manager.remove(manager.merge(t));
+    public T delete(T t) {
+        manager.remove(manager.find(entityClass, t.getId()));
+        return t;
     }
 
     public T add(T t) {
