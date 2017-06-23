@@ -14,9 +14,11 @@
             <div class="ui-g-12 ui-md-12 ui-lg-12">
                 <h:form id="catform">
                     <p:treeTable value="#{categoryBean.root}" var="category" id="categoryTable" selection="#{categoryBean.selected}" selectionMode="single" emptyMessage="#{messages.none}" >
+                        <p:ajax event="select"  update="buttons" />
                         <f:facet name="header">
                             #{messages.title}
                         </f:facet>
+                        
                         <p:column headerText="#{messages.name}">
                             <h:outputText value="#{category.name}" />
                         </p:column>
@@ -25,11 +27,13 @@
                         </p:column>
                         <p:column headerText="ID" style="width:100px;" priority="6" >
                             <h:outputText value="#{category.id}" style="color:blue;" />
-                        </p:column> 
+                        </p:column>  
                         <f:facet name="footer">
-                            <p:commandButton title="#{messages.addcategory}"  onclick="PF('addCategory').show()"      disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-plus"/>
-                            <p:commandButton title="#{messages.editcategory}" onclick="PF('editCategory').show()"     disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-edit"/>
-                            <p:commandButton title="#{messages.delete}"       actionListener="#{categoryBean.delete}" disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-trash"/>
+                            <h:panelGrid columns="3" cellpadding="10" id="buttons">
+                                <p:commandButton title="#{messages.addcategory}"  onclick="PF('addCategory').show()"      disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-plus"/>
+                                <p:commandButton title="#{messages.editcategory}" onclick="PF('editCategory').show()"     disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-edit"/>
+                                <p:commandButton title="#{messages.delete}"       actionListener="#{categoryBean.delete}" disabled="#{categoryBean.selected == null}" update="categoryTable" icon="fa fa-trash"/>
+                            </h:panelGrid>
                         </f:facet>
                     </p:treeTable>      
                     <p:blockUI block="categoryTable" trigger="categoryTable" />
