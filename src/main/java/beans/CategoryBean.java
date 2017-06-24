@@ -35,18 +35,16 @@ public class CategoryBean implements Serializable {
         root.getChildren().add(buildTree(categoryEjb.getRoot(loginBean.getUser())));
     }
 
-    public void add() {
+    public void add() throws InterruptedException {
         category.setParent((Category) selected.getData());
         category.setUser(loginBean.getUser());
         selected.getChildren().add(new DefaultTreeNode(categoryEjb.add(category)));
         category = new Category();
-        RequestContext.getCurrentInstance().execute("PF('addCategory').hide()");
+        Thread.sleep(2000);
     }
 
     public void update() {
-
         categoryEjb.update(category);
-        RequestContext.getCurrentInstance().execute("PF('editCategory').hide()");
     }
 
     public void delete() {
