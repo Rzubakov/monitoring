@@ -76,7 +76,7 @@ public class RegisterBean implements Serializable {
                     showMessage("Учетная запись успешно создана", FacesMessage.SEVERITY_INFO);
                 } catch (Exception e) {
                     showMessage("Email уже используется", FacesMessage.SEVERITY_FATAL);
-                    e.printStackTrace();
+                    
                     return "personal";
                 }
             }
