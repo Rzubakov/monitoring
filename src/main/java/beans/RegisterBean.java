@@ -48,7 +48,6 @@ public class RegisterBean implements Serializable {
     private void createUser() {
         User user = new User();
         Profile profile = new Profile();
-        
         profile.setCompany(company);
         profile.setFirstname(firstname);
         profile.setLastname(lastname);
@@ -57,7 +56,6 @@ public class RegisterBean implements Serializable {
         user.setEmail(email);
         user.setPassword(getPassword(password));
         userEjb.add(user);
-
     }
 
     public String onFlowProcess(FlowEvent event) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -75,6 +73,7 @@ public class RegisterBean implements Serializable {
                     createUser();
                     showMessage("Учетная запись успешно создана", FacesMessage.SEVERITY_INFO);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     showMessage("Email уже используется", FacesMessage.SEVERITY_FATAL);
                     
                     return "personal";

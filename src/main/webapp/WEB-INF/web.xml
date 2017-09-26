@@ -46,7 +46,10 @@
         <extension>svg</extension>  
         <mime-type>image/svg+xml</mime-type>  
     </mime-mapping>
-    
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>

@@ -6,6 +6,7 @@
 package ejb;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -26,9 +27,8 @@ public class MailService {
     public MailService() {
     }
     
-    @RolesAllowed({"ROBOT","ADMIN","USER"})
+    @PermitAll
     public void send(String addresses, String topic, String textMessage) {
-
         try {
             Message message = new MimeMessage(session);
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
